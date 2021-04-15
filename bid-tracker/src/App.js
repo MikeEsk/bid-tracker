@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Header from './components/Header'
 import Bids from './components/Bids'
+import AddBid from './components/AddBid'
 
 
 
@@ -40,7 +41,8 @@ function App() {
   return (
     <div className="container">
       <Header />
-      {bids.length > 0? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
+      <AddBid />
+      {bids.length > 0 ? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
     </div>
     
   );
