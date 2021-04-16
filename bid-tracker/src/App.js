@@ -28,6 +28,11 @@ function App() {
     }
   ])
 
+  //Add a Bid
+  const addBid = (bid) => {
+    console.log(bid)
+  }
+
   //Delete a bid
   const deleteBid = (id) => {
     setBids(bids.filter((bid) => bid.id !== id))
@@ -41,7 +46,7 @@ function App() {
   return (
     <div className="container">
       <Header />
-      <AddBid />
+      <AddBid onAdd={addBid}/>
       {bids.length > 0 ? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
     </div>
     
