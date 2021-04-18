@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Bids from './components/Bids'
 import AddBid from './components/AddBid'
-
-
+import About from './components/About'
 
 
 function App() {
@@ -79,12 +80,19 @@ function App() {
   }
 
   return (
-    <div className="container">
-      <Header toggleShowAddBid={() => {setShowAddBid(!showAddBid)}} showAddBid={showAddBid} />
-      {showAddBid && <AddBid onAdd={addBid}/>}
-      {bids.length > 0 ? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
-    </div>
-    
+    <Router>
+      <div className="container">
+        <Header toggleShowAddBid={() => {setShowAddBid(!showAddBid)}} showAddBid={showAddBid} />
+        <Route path='/' exact render ={(props) => (
+          <>
+            {showAddBid && <AddBid onAdd={addBid}/>}
+            {bids.length > 0 ? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
+          </>
+        )} />
+        <Route path='/about' component={About}/>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
