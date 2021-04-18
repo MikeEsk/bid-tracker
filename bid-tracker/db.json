@@ -1,0 +1,22 @@
+{
+  "bids": [
+    {
+      "company": "Joes Hammers",
+      "price": "$6,000",
+      "reviewed": false,
+      "id": 1
+    },
+    {
+      "company": "Carl's Construction",
+      "price": "$37,000",
+      "reviewed": false,
+      "id": 2
+    },
+    {
+      "company": "Stan's Plans",
+      "price": "$18,000",
+      "reviewed": true,
+      "id": 3
+    }
+  ]
+}

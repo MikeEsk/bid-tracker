@@ -3,21 +3,21 @@ import {useState} from 'react'
 
 const AddBid = ({ onAdd }) => {
     const [company, setCompany] = useState('')
-    const [bid, setBid] = useState('')
+    const [price, setPrice] = useState('')
     const [reviewed, setReviewed] = useState(false)
 
     const onSubmit = e => {
         e.preventDefault()
         
-        if(!bid) {
-            alert('Please add a bid')
+        if(!price) {
+            alert('Please add a price')
             return
         }
 
-        onAdd({company, bid, reviewed})
+        onAdd({company, price, reviewed})
 
         setCompany('')
-        setBid('')
+        setPrice('')
         setReviewed(false)
     }
 
@@ -29,7 +29,7 @@ const AddBid = ({ onAdd }) => {
             </div>
             <div className='form-control'>
                 <label>Bid</label>
-                <input type='text' value={bid} placeholder='Add Bid' onChange={e => setBid(e.target.value)}/>
+                <input type='text' value={price} placeholder='Add Bid' onChange={e => setPrice(e.target.value)}/>
             </div>
             <div className='form-control form-control-check'>
                 <label>Set Reviewed</label>
@@ -41,7 +41,7 @@ const AddBid = ({ onAdd }) => {
 }
 
 AddBid.propTypes = {
-
+    
 }
 
 export default AddBid
