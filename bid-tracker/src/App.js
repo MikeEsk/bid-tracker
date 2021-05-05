@@ -6,12 +6,16 @@ import Footer from './components/Footer'
 import Bids from './components/Bids'
 import AddBid from './components/AddBid'
 import About from './components/About'
+import axios from 'axios'
+
+import TradesState from './context/trades/TradesState'
 
 
 function App() {
+  //state
   const [showAddBid, setShowAddBid] = useState (false)
-  
   const [bids, setBids] = useState([])
+
 
   useEffect(() => {
     const getBids = async () => {
@@ -81,22 +85,24 @@ function App() {
   }
 
   return (
-    <Router>
-      <div>
-        <Navbar />
-      </div>
-      <div className="container">
-        <Header toggleShowAddBid={() => {setShowAddBid(!showAddBid)}} showAddBid={showAddBid} title='Concrete' />
-        <Route path='/' exact render ={(props) => (
-          <>
-            {showAddBid && <AddBid onAdd={addBid}/>}
-            {bids.length > 0 ? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
-          </>
-        )} />
-        <Route path='/about' component={About}/>
-        <Footer />
-      </div>
-    </Router>
+    <TradesState>
+      <Router>
+        <div>
+          <Navbar />
+        </div>
+        <div className="container">
+          <Header toggleShowAddBid={() => {setShowAddBid(!showAddBid)}} showAddBid={showAddBid} title='Concrete' />
+          <Route path='/' exact render ={(props) => (
+            <>
+              {showAddBid && <AddBid onAdd={addBid}/>}
+              {bids.length > 0 ? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
+            </>
+          )} />
+          <Route path='/about' component={About}/>
+          <Footer />
+        </div>
+      </Router>
+    </TradesState>
   );
 }
 
