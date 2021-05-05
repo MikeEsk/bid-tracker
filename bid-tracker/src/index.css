@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
 
+:root {
+  --primary-color: #17a2b8;
+  --dark-color: #343a40;
+  --light-color: #f4f4f4;
+  --danger-color: #dc3545;
+  --success-color: #28a745;
+}
+
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,7 +21,9 @@ body {
 
 .container {
   max-width: 500px;
-  margin: 30px auto;
+  margin-top: 100px;
+  margin-left: 20px;
+  /*margin: 30px auto;*/
   overflow: auto;
   min-height: 300px;
   border: 1px solid steelblue;
@@ -24,6 +35,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 50px;
   margin-bottom: 20px;
 }
 
@@ -110,3 +122,63 @@ footer {
   margin-top: 30px;
   text-align: center;
 }
+
+
+
+
+
+
+
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  border-bottom: solid 1px var(--primary-color);
+  opacity: 0.9;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar a {
+  color: #fff;
+  padding: 0.45rem;
+  margin: 0 0.25rem;
+}
+
+.navbar a:hover {
+  color: var(--primary-color);
+}
+
+.navbar .welcome span {
+  margin-right: 0.6rem;
+}
+
+
+/* Navbar 
+.navbar {
+  display: block;
+  text-align: center;
+}
+
+.navbar ul {
+  text-align: center;
+  justify-content: center;
+}
+
+.navbar h1 {
+  margin-bottom: 1rem;
+}
+
+.navbar .welcome {
+  display: none;
+}
+*/

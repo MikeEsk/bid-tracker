@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
+import Navbar from './components/Navbar'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Bids from './components/Bids'
@@ -81,8 +82,11 @@ function App() {
 
   return (
     <Router>
+      <div>
+        <Navbar />
+      </div>
       <div className="container">
-        <Header toggleShowAddBid={() => {setShowAddBid(!showAddBid)}} showAddBid={showAddBid} />
+        <Header toggleShowAddBid={() => {setShowAddBid(!showAddBid)}} showAddBid={showAddBid} title='Concrete' />
         <Route path='/' exact render ={(props) => (
           <>
             {showAddBid && <AddBid onAdd={addBid}/>}
