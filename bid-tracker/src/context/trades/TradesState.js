@@ -1,11 +1,15 @@
 import React, { useReducer } from 'react';
 import axios from 'axios';
-import tradesContext from './tradesContext';
-import tradesReducer from './tradesReducer';
+import TradesContext from './tradesContext';
+import TradesReducer from './tradesReducer';
 import {
     SEARCH_COMPANIES,
     GET_BIDS,
-    SET_BIDS
+    ADD_BID,
+    DELETE_BID,
+    TOGGLE_REVIEWED,
+    SET_BIDS,
+    SHOW_ADD_BID
 } from '../types';
 
 const TradesState = props => {
@@ -14,7 +18,7 @@ const TradesState = props => {
         bids: []
     }
 
-    const [state, dispatch] = useReducer(tradesReducer, initialState);
+    const [state, dispatch] = useReducer(TradesReducer, initialState);
 
     // Search Companies
 
@@ -24,14 +28,14 @@ const TradesState = props => {
 
 
     
-    return <tradesContext.Provider
+    return <TradesContext.Provider
         value={{
             showAddBid: state.showAddBid,
             bids: state.bids
         }}
     >
         {props.children}
-    </tradesContext.Provider>
+    </TradesContext.Provider>
 
 }
 
