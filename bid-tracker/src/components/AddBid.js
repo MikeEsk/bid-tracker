@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types'
 import {useState} from 'react'
+import React from 'react'
 
 const AddBid = ({ onAdd }) => {
     const [company, setCompany] = useState('')

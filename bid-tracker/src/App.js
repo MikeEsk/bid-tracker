@@ -1,12 +1,8 @@
-import { useState, useEffect } from 'react'
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import {BrowserRouter as Router} from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Bids from './components/Bids'
-import AddBid from './components/AddBid'
-import About from './components/About'
 import axios from 'axios'
+import Trade from './components/Trade'
 
 import TradesState from './context/trades/TradesState'
 
@@ -84,25 +80,20 @@ function App() {
     setBids(bids.map((bid) => bid.id === id ? {...bid, reviewed: data.reviewed} : bid))
   }
 
+  //Placeholder for trade
+  const trade = 'Trade';
+
   return (
-    <TradesState>
+    //<TradesState>
       <Router>
         <div>
           <Navbar />
         </div>
         <div className="container">
-          <Header toggleShowAddBid={() => {setShowAddBid(!showAddBid)}} showAddBid={showAddBid} title='Concrete' />
-          <Route path='/' exact render ={(props) => (
-            <>
-              {showAddBid && <AddBid onAdd={addBid}/>}
-              {bids.length > 0 ? <Bids bids = {bids} onDelete={deleteBid} onToggle={toggleReviewed}/>: 'There are no bids'}
-            </>
-          )} />
-          <Route path='/about' component={About}/>
-          <Footer />
+          <Trade showAddBid={showAddBid} trade={trade} bids={bids} setShowAddBid={setShowAddBid} addBid={addBid} deleteBid={deleteBid} toggleReviewed={toggleReviewed}/>
         </div>
       </Router>
-    </TradesState>
+    //</TradesState>
   );
 }
 

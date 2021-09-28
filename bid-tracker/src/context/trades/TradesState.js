@@ -1,3 +1,5 @@
+/*
+
 import React, { useReducer } from 'react';
 import axios from 'axios';
 import TradesContext from './tradesContext';
@@ -40,3 +42,5 @@ const TradesState = props => {
 }
 
 export default TradesState
+
+*/

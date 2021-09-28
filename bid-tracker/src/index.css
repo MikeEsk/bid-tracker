@@ -58,7 +58,7 @@ body {
 }
 
 .btn:active {
-  transform: scale(0.98);
+  transform: scale(0.96);
 }
 
 .btn-block {
@@ -132,6 +132,7 @@ footer {
 
 /* Navbar */
 .navbar {
+  background: #fff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -139,9 +140,11 @@ footer {
   position: fixed;
   z-index: 1;
   width: 100%;
+  font-weight: bold;
+  font-size: 16px;
   top: 0;
-  border-bottom: solid 1px var(--primary-color);
-  opacity: 0.9;
+  border-bottom: solid 5px var(--primary-color);
+  opacity: 1.0;
 }
 
 .navbar ul {
@@ -149,13 +152,22 @@ footer {
 }
 
 .navbar a {
-  color: #fff;
+  color: white;
+  background-color: var(--danger-color);
   padding: 0.45rem;
   margin: 0 0.25rem;
+  border: solid 1px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 .navbar a:hover {
-  color: var(--primary-color);
+  color: var(--dark-color);
+}
+
+.navbar a:active {
+  transform: scale(0.96);
 }
 
 .navbar .welcome span {
