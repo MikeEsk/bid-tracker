@@ -1,12 +1,17 @@
 import React from 'react'
+import BidTrackTitle from './BidTrackTitle'
+import LogInStatus from './LogInStatus/LogInStatus'
+import RepoLink from './RepoLink'
 
-function Navbar() {
+
+function Header() {
     return (
-        <div className="navbar">
-            <h1>Construction Bid Tracker</h1>
-            <a target="_blank" href="https://github.com/mikeesk/bid-tracker">GitHub Repo</a>
+        <div>
+            <BidTrackTitle/>
+            <LogInStatus/>
+            <RepoLink/>
         </div>
     )
 }
 
-export default Navbar
+export default Header

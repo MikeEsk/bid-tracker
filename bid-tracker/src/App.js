@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from 'react'
 import {BrowserRouter as Router} from 'react-router-dom'
-import Navbar from './components/Navbar'
 import axios from 'axios'
-import Trade from './components/Trade'
 
-import TradesState from './context/trades/TradesState'
+//Import components
+import Header from './components/Header/Header'
+import NavBar from './components/NavBar/NavBar'
+import BidTrackMain from './components/BidTrackMain/BidTrackMain'
+
+//Context
+//import TradesState from './context/trades/TradesState'
+
 
 
 function App() {
-  //state
+  
+    //state
   const [showAddBid, setShowAddBid] = useState (false)
   const [bids, setBids] = useState([])
+  
+  //State for trades
+  //Have trades initialized and have ability to add or remove trades
+  
 
 
   useEffect(() => {
@@ -51,7 +61,7 @@ function App() {
     const data = await response.json()
     setBids([...bids, data])
   }
-
+  
   //Delete a bid
   const deleteBid = async (id) => {
     await fetch(`http://localhost:5000/bids/${id}`, {
@@ -83,15 +93,24 @@ function App() {
   //Placeholder for trade
   const trade = 'Trade';
 
+  const props = []
+
+
   return (
     //<TradesState>
       <Router>
-        <div>
-          <Navbar />
+        <div className="header">
+          <Header />
         </div>
-        <div className="container">
-          <Trade showAddBid={showAddBid} trade={trade} bids={bids} setShowAddBid={setShowAddBid} addBid={addBid} deleteBid={deleteBid} toggleReviewed={toggleReviewed}/>
+
+        <div className="navbar">
+          <NavBar/>
         </div>
+
+        <div className="bidtrackmain">
+          <BidTrackMain showAddBid={showAddBid} trade={trade} bids={bids} setShowAddBid={setShowAddBid} addBid={addBid} deleteBid={deleteBid} toggleReviewed={toggleReviewed}/>
+        </div>
+
       </Router>
     //</TradesState>
   );

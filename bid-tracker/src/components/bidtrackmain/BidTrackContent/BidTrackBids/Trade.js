@@ -4,7 +4,6 @@ import AddBid from "./AddBid";
 import Bids from "./Bids";
 import {BrowserRouter as Router,Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import About from "./About";
 import Footer from "./Footer";
 
 const Trade = (props) => {
@@ -18,7 +17,6 @@ const Trade = (props) => {
                     {props.bids.length > 0 ? <Bids bids={props.bids} onDelete={props.deleteBid} onToggle={props.toggleReviewed} /> : 'There are no bids'}
                 </React.Fragment>
             )} />
-            <Route path='/about' component={About} />
             <Footer />
         </div>
     )

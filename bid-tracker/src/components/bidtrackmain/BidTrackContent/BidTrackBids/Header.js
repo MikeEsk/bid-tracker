@@ -4,7 +4,7 @@ import Button from './Button.js'
 import React from 'react'
 
 
-const Header = ({ title, toggleShowAddBid, showAddBid }) => {
+const TradeTitle = ({ title, toggleShowAddBid, showAddBid }) => {
     const location = useLocation()
     
     return (
@@ -15,12 +15,12 @@ const Header = ({ title, toggleShowAddBid, showAddBid }) => {
     )
 }
 
-Header.defaultProps = {
+TradeTitle.defaultProps = {
     title: 'Bid Tracker',
 }
 
-Header.propTypes = {
+TradeTitle.propTypes = {
     title: PropTypes.string.isRequired,
 }
 
-export default Header
+export default TradeTitle
