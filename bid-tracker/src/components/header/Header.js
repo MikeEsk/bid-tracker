@@ -6,7 +6,7 @@ import RepoLink from './RepoLink'
 
 function Header() {
     return (
-        <div>
+        <div className='header-main'>
             <BidTrackTitle/>
             <LogInStatus/>
             <RepoLink/>

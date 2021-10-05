@@ -4,9 +4,9 @@ import BidTrackNav from './BidTrackNav/BidTrackNav'
 
 function BidTrackMain(props) {
     return (
-        <div>
-            <BidTrackContent {...props}/>
+        <div className='bidtrackmain'>
             <BidTrackNav/>
+            <BidTrackContent {...props}/>
         </div>
     )
 }

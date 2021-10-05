@@ -7,7 +7,7 @@ import BidTrackAbout from './BidTrackAbout/BidTrackAbout'
 
 function BidTrackContent(props) {
     return (
-        <div>
+        <div className='bidtrackcontent'>
             <BidTrackLandingPage/>
 			<BidTrackBids {...props}/>
 			<BidTrackBidSum/>

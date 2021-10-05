@@ -99,15 +99,15 @@ function App() {
   return (
     //<TradesState>
       <Router>
-        <div className="header">
+        <div>
           <Header />
         </div>
 
-        <div className="navbar">
+        <div>
           <NavBar/>
         </div>
 
-        <div className="bidtrackmain">
+        <div>
           <BidTrackMain showAddBid={showAddBid} trade={trade} bids={bids} setShowAddBid={setShowAddBid} addBid={addBid} deleteBid={deleteBid} toggleReviewed={toggleReviewed}/>
         </div>
 

@@ -1,10 +1,13 @@
 import React from 'react'
+import LogOutBtn from './LogOutBtn'
+import UserLabel from './UserLabel'
 
 function LogInStatus() {
     return (
-        <div>
-            
-        </div>
+        <React.Fragment>
+           <UserLabel/>
+           <LogOutBtn/> 
+        </React.Fragment>
     )
 }
 
