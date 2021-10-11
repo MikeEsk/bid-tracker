@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import BidTrackContent from './BidTrackContent/BidTrackContent'
 import BidTrackNav from './BidTrackNav/BidTrackNav'
 
-function BidTrackMain(props) {
+function BidTrackMain() {
+
     return (
         <div className='bidtrackmain'>
             <BidTrackNav/>
-            <BidTrackContent {...props}/>
+            <BidTrackContent/>
         </div>
     )
 }

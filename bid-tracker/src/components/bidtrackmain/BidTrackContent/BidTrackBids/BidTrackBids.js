@@ -1,14 +1,29 @@
 import React from 'react'
 import Trade from './Trade'
+import bidtrackContext from '../../../../context/trades/bidtrackContext';
+import { useContext } from 'react';
+import { useEffect } from 'react';
 
-function BidTrackBids(props) {
+
+function BidTrackBids() {
+
+    const bidContext = useContext(bidtrackContext);
+    
+    useEffect(() => {
+        const getBids = async () => {
+            await bidContext.fetchBids();
+        }
+    
+        getBids()
+        
+    }, [])
+
     return (
         <div className="container">
-          <Trade {...props}/>
+          <Trade/>
         </div>
     )
 }
 
 export default BidTrackBids
 
-//showAddBid={props.showAddBid} trade={props.trade} bids={props.bids} setShowAddBid={props.setShowAddBid} addBid={props.addBid} deleteBid={props.deleteBid} toggleReviewed={props.toggleReviewed}

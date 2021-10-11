@@ -4,8 +4,7 @@ import React from 'react'
 const Footer = () => {
     return (
         <footer>
-            <p>Copyright &copy; 2021</p>
-            <Link to="/about">About</Link>
+            <p>Copyright Mikeesk &copy; 2021</p>
         </footer>
     )
 }

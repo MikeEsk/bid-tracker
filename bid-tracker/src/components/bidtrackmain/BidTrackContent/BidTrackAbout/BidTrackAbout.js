@@ -4,12 +4,12 @@ import React from 'react'
 const BidTrackAbout = () => {
     return (
         <div>
-            <h4>Version 1.0.0</h4>
-            <Link to='/'>Go Back</Link>
+            <React.Fragment>
+                <h1>This website was created my Mikeesk as part of his portfolio.</h1>
+                <Link to='/'>Go Back</Link>
+            </React.Fragment>
         </div>
     )
 }
 
 export default BidTrackAbout
-
-//<Route path='/about' component={About} />

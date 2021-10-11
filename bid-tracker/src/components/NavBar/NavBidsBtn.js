@@ -1,8 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function NavBidsBtn() {
     return (
-        <button>Bids</button>
+        <Link to='/bids'> 
+            <button>Bids</button>
+        </Link>
     )
 }
 

@@ -10,7 +10,7 @@ const TradeTitle = ({ title, toggleShowAddBid, showAddBid }) => {
     return (
         <header className ='header'>
             <h1>{title}</h1>
-            {location.pathname === '/' && (<Button color={showAddBid ? 'red': 'green'} text={showAddBid ? 'Close Bid': 'Add A Bid'} toggleShowAddBid={toggleShowAddBid}/>)}
+            {location.pathname === '/bids' && (<Button color={showAddBid ? 'red': 'green'} text={showAddBid ? 'Close Bid': 'Add A Bid'} toggleShowAddBid={toggleShowAddBid}/>)}
         </header>
     )
 }

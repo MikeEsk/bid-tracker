@@ -1,23 +1,26 @@
 import React from "react";
+import { useContext } from "react";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import bidtrackContext from "../../../../context/trades/bidtrackContext";
 import Header from "./Header";
 import AddBid from "./AddBid";
 import Bids from "./Bids";
-import {BrowserRouter as Router,Route} from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Footer from "./Footer";
 
-const Trade = (props) => {
+const Trade = () => {
+
+    const bidcontext = useContext(bidtrackContext);
+    const [showAddBid, setShowAddBid] = useState(false);
 
     return (
         <div>
-            <Header toggleShowAddBid={() => { props.setShowAddBid(!props.showAddBid); } } showAddBid={props.showAddBid} title={props.trade} />
-            <Route path='/' exact render={() => (
-                <React.Fragment>
-                    {props.showAddBid && <AddBid onAdd={props.addBid} />}
-                    {props.bids.length > 0 ? <Bids bids={props.bids} onDelete={props.deleteBid} onToggle={props.toggleReviewed} /> : 'There are no bids'}
-                </React.Fragment>
-            )} />
-            <Footer />
+            <React.Fragment>
+                    <Header toggleShowAddBid={() => { setShowAddBid(!showAddBid); } } showAddBid={showAddBid} title='Concrete' /> 
+                    {showAddBid && <AddBid onAdd={bidcontext.addBid} />}
+                    {bidcontext.bids.length > 0 ? <Bids bids={bidcontext.bids} onDelete={bidcontext.deleteBid} onToggle={bidcontext.toggleReviewed} /> : 'There are no bids'}
+                    <Footer />
+            </React.Fragment>
         </div>
     )
 
