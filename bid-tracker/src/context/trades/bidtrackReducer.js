@@ -42,7 +42,7 @@ const bidtrackReducer = (state, action) => {
         case DELETE_BID:
             
             const id = action.payload
-            const new_bids = state.bids.filter(bid => bid.id != id)
+            const new_bids = state.bids.filter(bid => bid.id !== id)
         
             return {
                 ...state,
@@ -51,7 +51,10 @@ const bidtrackReducer = (state, action) => {
         
         case TOGGLE_REVIEWED:
 
-            const bids_toggled = state.bids.map(bid => bid.id === action.payload ? {...bid, reviewed: !bid.reviewed}: bid)
+            //Check that review status matches state
+            //state.bids.bid_id
+
+            const bids_toggled = state.bids.map(bid => bid.bid_id === action.payload.id ? {...bid, reviewed: !bid.reviewed}: bid)
 
             return {
                 ...state,
@@ -66,6 +69,10 @@ const bidtrackReducer = (state, action) => {
         case SHOW_ADD_BID:
             return {
                 //TODO
+            };
+        default:
+            return {
+
             };
     }
 }

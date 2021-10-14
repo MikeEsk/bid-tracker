@@ -6,7 +6,7 @@ const Bids = ({bids, onDelete, onToggle}) => {
     return (
         <React.Fragment>
             {bids.map((bid) => (
-                <Bid key={bid.id} bid = {bid} onDelete ={onDelete} onToggle={onToggle}/>
+                <Bid key={bid.bid_id} bid = {bid} onDelete ={onDelete} onToggle={onToggle}/>
                 )
             )}
         </React.Fragment>

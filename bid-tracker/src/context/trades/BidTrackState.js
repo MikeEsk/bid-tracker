@@ -44,6 +44,8 @@ const BidTrackState = props => {
 
     // Add Bid
     const addBid = async (bid) => {
+
+        //Is passed company, price, and reviewed from 'bid'
         const response = await fetch('http://localhost:5000/bids/', {
             method: 'POST',
             headers: {
@@ -53,9 +55,15 @@ const BidTrackState = props => {
         })
         const data = await response.json()
         
-        dispatch({type: ADD_BID, payload: data})
-
+        await dispatch({type: ADD_BID, payload: data})
+        
+        //Refresh page with latest bid state
         fetchBids()
+
+        /*
+        TODO: Could use RETURNING Postgres command to update
+              state without extra fetch call
+        */
     }
 
     // Delete Bid
@@ -65,25 +73,22 @@ const BidTrackState = props => {
         })
 
         dispatch({type: DELETE_BID, payload: id})
+
+        //Refresh page with latest bid state
+        fetchBids()
     }
 
     // Toggle Reviewed
     const toggleReviewed = async (id) => {
         
-        const bidToToggle = await fetchBid(id)
-        const bid_updated = {...bidToToggle, reviewed: !bidToToggle.reviewed} 
-        
         const response = await fetch(`http://localhost:5000/bids/${id}`, {
             method: 'PUT',
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify(bid_updated)
         })
 
         const data = await response.json()
 
-        dispatch({type: TOGGLE_REVIEWED, payload: id})
+        dispatch({type: TOGGLE_REVIEWED, payload: {id, data}})
+
     }
 
     // Set Bids
