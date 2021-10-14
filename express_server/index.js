@@ -16,8 +16,8 @@ app.post("/bids", async (req, res) => {
     try {
         
         const {company, price, reviewed} = req.body;
-        const newBid = await pool.query("INSERT INTO bids (company, price, reviewed) VALUES ($1, $2, $3)", [company, price, reviewed]);
-        res.json(newBid);
+        const newBid = await pool.query("INSERT INTO bids (company, price, reviewed) VALUES ($1, $2, $3) RETURNING *", [company, price, reviewed]);
+        res.json(newBid.rows[0]);
 
     } catch (err) {
         console.error(err.message);
@@ -28,7 +28,7 @@ app.post("/bids", async (req, res) => {
 app.get('/bids', async (req, res) => {
     try {
 
-        const allBids = await pool.query("SELECT * FROM bids");
+        const allBids = await pool.query("SELECT * FROM bids ORDER BY bid_id ASC");
         res.json(allBids.rows);
 
 

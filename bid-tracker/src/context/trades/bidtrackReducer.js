@@ -33,16 +33,19 @@ const bidtrackReducer = (state, action) => {
             
         
         case ADD_BID:
+            console.log(action.payload)
+
             return {
                 ...state,
-                bids: state.bids.push(action.payload)
+                bids: [...state.bids, action.payload]
             };
         
         
         case DELETE_BID:
             
-            const id = action.payload
-            const new_bids = state.bids.filter(bid => bid.id !== id)
+            const index = state.bids.findIndex(bid => bid.bid_id === action.payload)
+            const new_bids = [...state.bids]
+            new_bids.splice(index, 1)
         
             return {
                 ...state,

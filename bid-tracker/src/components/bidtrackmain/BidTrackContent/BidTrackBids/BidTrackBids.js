@@ -18,6 +18,8 @@ function BidTrackBids() {
         
     }, [])
 
+    console.log(bidContext.bids)
+
     return (
         <div className="container">
           <Trade/>

@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import bidtrackContext from './bidtrackContext';
 import bidtrackReducer from './bidtrackReducer';
+import { useContext } from 'react';
 import {
     SEARCH_COMPANIES,
     GET_BIDS,
@@ -30,6 +31,7 @@ const BidTrackState = props => {
         const data = await res.json()
         
         dispatch({type: GET_BIDS, payload: data})
+
     }
 
     // Get Bid
@@ -55,27 +57,19 @@ const BidTrackState = props => {
         })
         const data = await response.json()
         
-        await dispatch({type: ADD_BID, payload: data})
+        dispatch({type: ADD_BID, payload: data})
         
-        //Refresh page with latest bid state
-        fetchBids()
-
-        /*
-        TODO: Could use RETURNING Postgres command to update
-              state without extra fetch call
-        */
     }
 
     // Delete Bid
     const deleteBid = async (id) => {
+        
         await fetch(`http://localhost:5000/bids/${id}`, {
         method: 'DELETE',
         })
 
         dispatch({type: DELETE_BID, payload: id})
 
-        //Refresh page with latest bid state
-        fetchBids()
     }
 
     // Toggle Reviewed
