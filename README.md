@@ -1,3 +1,3 @@
 # Construction Bid Tracker
 
-React front end for tracking construction bids
+Full stack application for tracking construction bids
