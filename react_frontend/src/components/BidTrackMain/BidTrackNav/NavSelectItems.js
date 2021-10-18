@@ -1,8 +1,15 @@
 import React from 'react'
 
-function NavSelectItems() {
+function NavSelectItems(props) {
+
     return (
-        <h3>Concrete</h3>
+        <React.Fragment>
+            <ul className='navselectitems'>
+                {props.trades.map(trade =>
+                    <li onClick={props.onClick} value={trade.trade} className='navselectitem'>{trade.trade}</li>
+                )}
+            </ul>
+        </React.Fragment>
     )
 }
 

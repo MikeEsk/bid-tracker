@@ -13,12 +13,9 @@ function BidTrackBids() {
         const getBids = async () => {
             await bidContext.fetchBids();
         }
-    
         getBids()
-        
     }, [])
 
-    console.log(bidContext.bids)
 
     return (
         <div className="container">

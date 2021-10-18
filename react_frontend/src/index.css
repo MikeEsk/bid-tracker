@@ -12,14 +12,22 @@
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-body {
+html, body {
   font-family: 'Poppins', sans-serif;
+  height: 100%;
+  width: 100%;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 
 
 /* ----  Header  ------ */
@@ -81,9 +89,9 @@ body {
 
 .navbar {
   display: flex;
+  background-color: var(--navbar-color);
   justify-content: space-evenly;
   align-items: center;
-  flex-grow: 1;
   flex-wrap: wrap;
   min-height: 30px;
   border: 1px solid steelblue;
@@ -113,20 +121,40 @@ body {
 .bidtrackmain {
   display: flex;
   justify-content: space-evenly;
-  max-height: 800px;
-  min-height: 800px;
-
+  height: 100%
 }
 
 
 /* --- BidTrackContent  ---- */
 
 .bidtrackcontent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: var(--bidtrackcontent-color);
-  flex-grow: 8;
+  width: 80%;
+  height: 100%;
   
 }
 
+.container {
+  flex: 1 1 auto;
+  max-width: 800px;
+  margin-top: 10px;
+  margin-left: 20px;
+  overflow: auto;
+  min-height: 300px;
+  padding: 10px;
+  /*border: 1px solid steelblue;
+  border-radius: 5px;*/
+}
+
+footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  justify-content: flex-end;
+}
 
 
 /* --- BidTrackNav  ---- */
@@ -134,7 +162,7 @@ body {
 .bidtracknav {
   display: flex;
   background-color: var(--bidtracknav-color);
-  flex-grow: 1;
+  width: 20%;
   flex-direction: column;
   align-items: center;
 }
@@ -146,6 +174,63 @@ body {
   font-family: inherit;
 }
 
+.navselectitems {
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  width: 100%;
+  font-family: inherit;
+  list-style-type: none;
+}
+
+.navselectitem {
+  margin: 8px 8px;
+  text-align: center;
+}
+
+.navselectitem:hover {
+  border: 2px;
+  background-color: var(--bidtrackcontent-color);
+  border-radius: 5px;
+}
+
+.navselectaddtrade-form {
+  display: block;
+  position: fixed;
+  width: 100%;
+  margin: 10%;
+  border: 3px solid #f1f1f1;
+  max-width: 300px;
+}
+
+.navselectaddtrade-form-container {
+  max-width: 400px;
+  text-align: center;
+  padding: 20px;
+  background-color: white;
+}
+
+.navselectaddtrade-form-container input[type=text]:focus {
+  background-color: #ddd;
+}
+
+.navselectaddtrade-form-container input[type=text] {
+  width: 80%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+.navselectaddtrade-form-container .btn {
+  color: white;
+  padding: 5px 5px;
+  border: none;
+  cursor: pointer;
+  width: 80%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
 
 
 
@@ -154,23 +239,13 @@ body {
 /* ----  BitTrackBids  ---- */
 
 
-.container {
-  max-width: 800px;
-  margin-top: 100px;
-  margin-left: 20px;
-  margin: 30px auto;
-  overflow: auto;
-  min-height: 300px;
-  padding: 30px;
-  /*border: 1px solid steelblue;
-  border-radius: 5px;*/
-}
+
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 10px;
   margin-bottom: 20px;
 }
 
@@ -253,10 +328,7 @@ body {
   height: 20px;
 }
 
-footer {
-  margin-top: 30px;
-  text-align: center;
-}
+
 
 
 

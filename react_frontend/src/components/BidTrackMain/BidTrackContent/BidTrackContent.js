@@ -5,6 +5,7 @@ import BidTrackBids from './BidTrackBids/BidTrackBids'
 import BidTrackBidSum from './BidTrackBidSum/BidTrackBidSum'
 import BidTrackBidLevel from './BidTrackBidLevel/BidTrackBidLevel'
 import BidTrackAbout from './BidTrackAbout/BidTrackAbout'
+import Footer from './Footer'
 
 function BidTrackContent() {
     return (
@@ -14,6 +15,7 @@ function BidTrackContent() {
             <Route path='/bidsummary' exact render={() => (<BidTrackBidSum/>)}/>
             <Route path='/bidleveling' exact render={() => (<BidTrackBidLevel/>)}/>
             <Route path='/about' exact render={() => (<BidTrackAbout/>)}/>
+            <Footer/>
         </div>
     )
 }
