@@ -14,7 +14,7 @@ const TradeTitle = ({ title, toggleShowAddBid, showAddBid }) => {
     return (
         <header className ='header'>
             {title==='default' ? <h1>Please Select a Trade</h1> : <h1>{title}</h1>}
-            {location.pathname === '/bids' && bidContext.selectedtrade !== 'default' && <Button color={showAddBid ? 'red': 'green'} text={showAddBid ? 'Close Bid': 'Add A Bid'} toggleShowAddBid={toggleShowAddBid}/>}
+            {location.pathname === '/bids' && bidContext.selectedtrade !== 'default' && <Button color={showAddBid ? 'red': 'green'} text={showAddBid ? 'Close Bid Form': 'Add A Bid'} toggleShowAddBid={toggleShowAddBid}/>}
         </header>
     )
 }

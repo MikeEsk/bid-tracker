@@ -17,7 +17,7 @@ const Trade = () => {
         <div>
             <React.Fragment>
                     <TradeTitle toggleShowAddBid={() => { setShowAddBid(!showAddBid); } } showAddBid={showAddBid} title={bidcontext.selectedtrade} /> 
-                    {showAddBid && <AddBid onAdd={bidcontext.addBid} />}
+                    {showAddBid && <AddBid onAdd={bidcontext.addBid} trade={bidcontext.selectedtrade}/>}
                     {bidcontext.bids.length > 0 ? <Bids bids={bidcontext.bids} onDelete={bidcontext.deleteBid} onToggle={bidcontext.toggleReviewed} /> : bidcontext.selectedtrade !== 'default' && 'There are no bids'}
             </React.Fragment>
         </div>

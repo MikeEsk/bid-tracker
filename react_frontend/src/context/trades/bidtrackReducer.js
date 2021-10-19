@@ -10,7 +10,9 @@ import {
     LOAD_TRADE_DATA,
     CLEAR_BIDS,
     TOGGLE_ADD_TRADE,
-    ADD_TRADE
+    TOGGLE_REMOVE_TRADE,
+    ADD_TRADE,
+    RESET_SELECTED_TRADE
 } from '../types';
 
 
@@ -22,28 +24,24 @@ const bidtrackReducer = (state, action) => {
             };
 
         case GET_BIDS:
-            
             return {
                 ...state,
                 bids: action.payload
             };
         
         case GET_TRADES:
-            
             return {
                 ...state,
                 trades: action.payload
             };
 
         case SELECTED_BID:
-
             return {
                 ...state,
                 selectedbid: action.payload
             };
         
         case ADD_BID:
-            console.log(action.payload)
             return {
                 ...state,
                 bids: [...state.bids, action.payload]
@@ -83,11 +81,23 @@ const bidtrackReducer = (state, action) => {
                 ...state,
                 showAddTrade: !state.showAddTrade
             }
+
+        case TOGGLE_REMOVE_TRADE:
+            return {
+                ...state,
+                showRemoveTrade: !state.showRemoveTrade
+            }
         
         case ADD_TRADE:
             return {
                 ...state,
                 trades: [...state.trades, action.payload]
+            }
+        
+        case RESET_SELECTED_TRADE:
+            return {
+                ...state,
+                selectedtrade: action.payload
             }
 
         default:

@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import bidtrackContext from './bidtrackContext';
 import bidtrackReducer from './bidtrackReducer';
+
 import {
     SEARCH_COMPANIES,
     GET_BIDS,
@@ -13,7 +14,8 @@ import {
     LOAD_TRADE_DATA,
     CLEAR_BIDS,
     TOGGLE_ADD_TRADE,
-    ADD_TRADE
+    TOGGLE_REMOVE_TRADE,
+    RESET_SELECTED_TRADE
 } from '../types';
 
 const BidTrackState = props => {
@@ -23,7 +25,8 @@ const BidTrackState = props => {
         bids: [],
         selectedbid: {},
         selectedtrade: 'default',
-        showAddTrade: false
+        showAddTrade: false,
+        showRemoveTrade: false
     }
 
     const [state, dispatch] = useReducer(bidtrackReducer, initialState);
@@ -55,6 +58,7 @@ const BidTrackState = props => {
     // Add Bid
     const addBid = async (bid) => {
         //Is passed company, price, and reviewed from 'bid'
+        
         const response = await fetch('http://localhost:5000/bids/', {
             method: 'POST',
             headers: {
@@ -63,7 +67,9 @@ const BidTrackState = props => {
             body: JSON.stringify(bid)
         })
         const data = await response.json()
+    
         dispatch({type: ADD_BID, payload: data})
+
     }
 
     // Delete Bid
@@ -73,7 +79,6 @@ const BidTrackState = props => {
         })
         dispatch({type: DELETE_BID, payload: id})
 
-        console.log(res.body)
     }
 
     // Toggle Reviewed when bid is double clicked
@@ -109,7 +114,8 @@ const BidTrackState = props => {
         dispatch({type: TOGGLE_ADD_TRADE})
     }
     
-    // Add the trade to the database and toggle the addTradeForm off
+    
+    // Add the trade to the database and toggle the toggleAddTrade off
     const addTrade = async (tradeName) => {
         
         const tradedata = {trade: tradeName}
@@ -122,19 +128,39 @@ const BidTrackState = props => {
             body: JSON.stringify(tradedata)
         })
         
-        //Display alert that the trade was added
-        console.log(res)
-
         //Update the state with the new trade
         fetchBids()
         
         // Call the loadTrade function to load the new trade into the title and show its state of bids
         loadTrade(tradeName)
-
+        
         //Call the toggleAddTrade function to toggle off the form
         toggleAddTrade()
     }
 
+    
+    // Toggle the removeTrade form
+    const toggleRemoveTrade = () => {
+        dispatch({type: TOGGLE_REMOVE_TRADE})
+    }
+
+
+    // Remove a trade from the database and toggle the toggleRemoveTrade off
+    const removeTrade = async (tradeName) => {
+        const res = await fetch(`http://localhost:5000/removetrade/${tradeName}`, {
+        method: 'DELETE',
+        })
+
+        //Update the state with the new trade state
+        fetchBids()
+
+        // Update the selectrade to default
+        dispatch({type: RESET_SELECTED_TRADE, payload: 'default'})
+
+        //Call the toggleRemoveTrade function to toggle off the form
+        toggleRemoveTrade()
+
+    }
 
     // Show Add Bid
 
@@ -148,6 +174,7 @@ const BidTrackState = props => {
                 selectedbid: state.selectedbid,
                 selectedtrade: state.selectedtrade,
                 showAddTrade: state.showAddTrade,
+                showRemoveTrade: state.showRemoveTrade,
                 fetchBids, 
                 fetchBid, 
                 addBid, 
@@ -155,7 +182,9 @@ const BidTrackState = props => {
                 toggleReviewed,
                 loadTrade,
                 addTrade,
-                toggleAddTrade
+                toggleAddTrade,
+                removeTrade,
+                toggleRemoveTrade
         }}>
             {props.children}
         </bidtrackContext.Provider>

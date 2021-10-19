@@ -3,6 +3,7 @@ import bidtrackContext from '../../context/trades/bidtrackContext'
 import BidTrackContent from './BidTrackContent/BidTrackContent'
 import BidTrackNav from './BidTrackNav/BidTrackNav'
 import NavSelectAddTrade from './NavSelectAddTrade'
+import NavSelectRemoveTrade from './NavSelectRemoveTrade'
 
 function BidTrackMain() {
 
@@ -13,6 +14,7 @@ function BidTrackMain() {
             <BidTrackNav/>
             <BidTrackContent/>
             {bidContext.showAddTrade && <NavSelectAddTrade/>}
+            {bidContext.showRemoveTrade && <NavSelectRemoveTrade/>}
         </div>
     )
 }

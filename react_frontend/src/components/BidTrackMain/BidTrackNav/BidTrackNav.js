@@ -4,7 +4,7 @@ import bidtrackContext from '../../../context/trades/bidtrackContext'
 import NavSelectAddTrade from '../NavSelectAddTrade'
 import NavSelectHeader from './NavSelectHeader'
 import NavSelectItems from './NavSelectItems'
-import NavSelectTradeAddBtn from './NavSelectTradeAddBtn'
+import NavSelectTradeBtn from './NavSelectTradeBtn'
 
 function BidTrackNav() {
     
@@ -14,7 +14,8 @@ function BidTrackNav() {
         <div className='bidtracknav'>
             <NavSelectHeader/>
             <NavSelectItems trades={bidContext.trades} onClick={(e) => bidContext.loadTrade(e.target.textContent)}/>
-            <NavSelectTradeAddBtn/>
+            <NavSelectTradeBtn title='Add Trade' color='green' toggle={bidContext.toggleAddTrade}/>
+            <NavSelectTradeBtn title='Remove Trade' color='red' toggle={bidContext.toggleRemoveTrade}/>
         </div>
     )
 }

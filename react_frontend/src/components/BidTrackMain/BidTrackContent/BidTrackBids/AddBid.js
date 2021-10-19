@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import React from 'react'
 
-const AddBid = ({ onAdd }) => {
+const AddBid = ({ onAdd, trade }) => {
     const [company, setCompany] = useState('')
     const [price, setPrice] = useState('')
     const [reviewed, setReviewed] = useState(false)
@@ -14,7 +14,7 @@ const AddBid = ({ onAdd }) => {
             return
         }
 
-        onAdd({company, price, reviewed})
+        onAdd({trade, company, price, reviewed})
 
         setCompany('')
         setPrice('')

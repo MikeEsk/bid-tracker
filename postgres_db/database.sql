@@ -1,3 +1,5 @@
+/* SCHEMA for Postgress Database */
+
 CREATE DATABASE bidtracker;
 
 CREATE TABLE bids(
@@ -7,6 +9,8 @@ CREATE TABLE bids(
     reviewed BOOLEAN
 );
 
+CREATE UNIQUE INDEX bid_company_name ON bids (company);
+
 CREATE TABLE companies(
     company_id SERIAL PRIMARY KEY,
     company VARCHAR(255),
@@ -14,19 +18,16 @@ CREATE TABLE companies(
     contact VARCHAR(255)
 );
 
+CREATE UNIQUE INDEX company_name ON companies (company);
+
 CREATE TABLE trades(
     trade_id SERIAL PRIMARY KEY,
     trade VARCHAR(255),
 )
 
-
-/* ---- Commands  ------
-
-- Need to select a trade and it returns all companies and their bids
+CREATE UNIQUE INDEX trade_name ON trades (trade);
 
 
-
-*/
 
 
 

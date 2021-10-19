@@ -34,7 +34,7 @@ app.get('/trades/:trade', async (req, res) => {
     try {
         
         const {trade} = req.params;
-        const tradedata = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.trade = $1", [trade]);
+        const tradedata = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1", [trade]);
         
         res.json(tradedata.rows)
         
@@ -51,13 +51,13 @@ app.get('/trades/:trade', async (req, res) => {
 app.post("/bids", async (req, res) => {
     try {
         
-        const {company, price, reviewed} = req.body;
+        const {trade, company, price, reviewed} = req.body;
         const newBid = await pool.query("INSERT INTO bids (company, price, reviewed) VALUES ($1, $2, $3) RETURNING *", [company, price, reviewed]);
         
         //  **TODO**   
         //  Need to add trade and contact data
         //  - If company, exists in bids, need to make an alert that says a bid already exists and you need to edit the existing one
-        const newCompany = await pool.query("INSERT INTO companies (company) VALUES ($1)", [company]);
+        const newCompany = await pool.query("INSERT INTO companies (company, trade) VALUES ($1, $2)", [company, trade]);
         
         res.json(newBid.rows[0]);
 
@@ -115,6 +115,19 @@ app.delete('/bids/:id', async (req, res) => {
     try {
         const {id} = req.params;
         const delBid = await pool.query("DELETE FROM bids WHERE bid_id = $1", [id]);
+        res.json("The bid was sucessfully deleted");
+        
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+
+//Delete a trade
+app.delete('/removetrade/:tradeName', async (req, res) => {
+    try {
+        const {tradeName} = req.params;
+        const delBid = await pool.query("DELETE FROM trades WHERE trade = $1", [tradeName]);
         res.json("The bid was sucessfully deleted");
         
     } catch (err) {

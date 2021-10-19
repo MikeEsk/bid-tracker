@@ -2,13 +2,13 @@ import React from 'react'
 import bidtrackContext from '../../../context/trades/bidtrackContext'
 import { useContext } from 'react'
 
-function NavSelectTradeAddBtn() {
+function NavSelectTradeBtn(props) {
 
     const bidContext = useContext(bidtrackContext)
 
     return (
-        <button className='btn' style={{backgroundColor: "#596869"}} onClick={bidContext.toggleAddTrade}>Add Trade</button>
+        <button className='btn' style={{backgroundColor: props.color}} onClick={props.toggle}>{props.title}</button>
     )
 }
 
-export default NavSelectTradeAddBtn
+export default NavSelectTradeBtn
