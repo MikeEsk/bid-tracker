@@ -10,10 +10,10 @@ function BidTrackBids() {
     const bidContext = useContext(bidtrackContext);
     
     useEffect(() => {
-        const getBids = async () => {
-            await bidContext.fetchBids();
+        const getTrades = async () => {
+            await bidContext.fetchTrades();
         }
-        getBids()
+        getTrades()
     }, [])
 
 

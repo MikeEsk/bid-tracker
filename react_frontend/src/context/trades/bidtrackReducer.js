@@ -1,6 +1,4 @@
-import { FaAcquisitionsIncorporated } from 'react-icons/fa';
 import {
-    SEARCH_COMPANIES,
     GET_BIDS,
     GET_TRADES,
     SELECTED_BID,
@@ -18,15 +16,11 @@ import {
 
 const bidtrackReducer = (state, action) => {
     switch (action.type) {
-        case SEARCH_COMPANIES:
-            return {  
-                //TODO
-            };
 
         case GET_BIDS:
             return {
                 ...state,
-                bids: action.payload
+                allbids: action.payload
             };
         
         case GET_TRADES:
@@ -44,36 +38,36 @@ const bidtrackReducer = (state, action) => {
         case ADD_BID:
             return {
                 ...state,
-                bids: [...state.bids, action.payload]
+                tradebids: [...state.tradebids, action.payload]
             };
         
         case DELETE_BID:
-            const index = state.bids.findIndex(bid => bid.bid_id === action.payload)
-            const new_bids = [...state.bids]
+            const index = state.tradebids.findIndex(bid => bid.bid_id === action.payload)
+            const new_bids = [...state.tradebids]
             new_bids.splice(index, 1)
             return {
                 ...state,
-                bids: new_bids
+                tradebids: new_bids
             };
         
         case TOGGLE_REVIEWED:
-            const bids_toggled = state.bids.map(bid => bid.bid_id === action.payload.id ? {...bid, reviewed: !bid.reviewed}: bid)
+            const bids_toggled = state.tradebids.map(bid => bid.bid_id === action.payload.id ? {...bid, reviewed: !bid.reviewed}: bid)
             return {
                 ...state,
-                bids: bids_toggled
+                tradebids: bids_toggled
             };
 
         case LOAD_TRADE_DATA:
             return {
                 ...state,
                 selectedtrade: action.payload.selectedtrade,
-                bids: action.payload.tradedata
+                tradebids: action.payload.tradedata
             };
 
         case CLEAR_BIDS:
             return {
                 ...state,
-                bids: action.payload
+                tradebids: action.payload
             };
 
         case TOGGLE_ADD_TRADE:

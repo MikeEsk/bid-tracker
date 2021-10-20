@@ -12,17 +12,23 @@ app.use(express.json());
 
 //*****  GET ROUTES   *******
 
-//Get all bids and trades
+
+//Get all bids
 app.get('/bids', async (req, res) => {
     try {
-        //Get bids from bids table
-        const allBids = await pool.query("SELECT * FROM bids ORDER BY bid_id ASC");
-        
-        //Get trades from trade table
+        const allBids = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company");
+        res.json(allBids.rows);
+    
+    } catch (err) {
+        console.error(err.message);
+    };
+})
+
+//Get all trades
+app.get('/trades', async (req, res) => {
+    try {
         const allTrades = await pool.query("SELECT * FROM trades ORDER BY trade ASC")
-        
-        res.json({bids: allBids.rows, trades: allTrades.rows});
-        
+        res.json(allTrades.rows);
         
     } catch (err) {
         console.error(err.message);
@@ -43,6 +49,17 @@ app.get('/trades/:trade', async (req, res) => {
     }
 })
 
+/*
+//Get lowest trade bid
+app.get('/lowestbids', async (req,res) => {
+    try {
+        const {trades} = req.params;
+        const lowestbid = await pool.query("SELECT MIN(price) FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1", [trade])")
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+*/
 
 
 // *****  POST ROUTES  *********

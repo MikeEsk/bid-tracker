@@ -20,7 +20,7 @@ function NavSelectRemoveTrade() {
                 <h1>Remove Trade</h1>
                 <br></br>
 
-                <input type='text' value={trade} placeholder='Concrete, Steel, etc...' name='trade' autocomplete='off' onChange={e => setTrade(e.target.value)} required/>
+                <input type='text' value={trade} placeholder='Concrete, Steel, etc...' name='trade' autoComplete='off' onChange={e => setTrade(e.target.value)} required/>
                 <input type='submit' value="Remove Trade" className='btn' style={{backgroundColor:'green'}}/>
 
                 <button type='button' className='btn' style={{backgroundColor:'red'}} onClick={bidContext.toggleRemoveTrade}>Close</button>

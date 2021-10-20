@@ -1,10 +1,8 @@
 import React, { useReducer } from 'react';
-import axios from 'axios';
 import bidtrackContext from './bidtrackContext';
 import bidtrackReducer from './bidtrackReducer';
 
 import {
-    SEARCH_COMPANIES,
     GET_BIDS,
     GET_TRADES,
     SELECTED_BID,
@@ -22,8 +20,9 @@ const BidTrackState = props => {
     const initialState = {
         showAddBid: false,
         trades: [],
-        bids: [],
-        selectedbid: {},
+        tradebids: [],
+        allbids: [],
+        selectedbid: '',
         selectedtrade: 'default',
         showAddTrade: false,
         showRemoveTrade: false
@@ -31,16 +30,22 @@ const BidTrackState = props => {
 
     const [state, dispatch] = useReducer(bidtrackReducer, initialState);
 
-    // Search Companies
-
-    // Get Trades
+    
+    // Get Bids
     const fetchBids = async () => {
         const res = await fetch('http://localhost:5000/bids')
         const data = await res.json()
         
-        //dispatch({type: GET_BIDS, payload: data.bids})
+        dispatch({type: GET_BIDS, payload: data})
+
+    }
+    
+    // Get Trades
+    const fetchTrades = async () => {
+        const res = await fetch('http://localhost:5000/trades')
+        const data = await res.json()
         
-        dispatch({type: GET_TRADES, payload: data.trades})
+        dispatch({type: GET_TRADES, payload: data})
 
 
     }
@@ -49,6 +54,7 @@ const BidTrackState = props => {
     const fetchBid = async (id) => {
         const res = await fetch(`http://localhost:5000/bids/${id}`)
         const data = await res.json()
+        console.log(data)
         
         //dispatch({type: SELECTED_BID, payload: data})
 
@@ -74,7 +80,7 @@ const BidTrackState = props => {
 
     // Delete Bid
     const deleteBid = async (id) => {
-        const res = await fetch(`http://localhost:5000/bids/${id}`, {
+        await fetch(`http://localhost:5000/bids/${id}`, {
         method: 'DELETE',
         })
         dispatch({type: DELETE_BID, payload: id})
@@ -102,6 +108,15 @@ const BidTrackState = props => {
     }
 
 
+    // Get the lowest bid for a specific trade
+    const getLowestBids = async (trades) => {
+        console.log(trades)
+        
+        
+        
+    }
+
+
     // Clear all bids
     const clearBids = () => {
         const clearedBids = []
@@ -120,7 +135,7 @@ const BidTrackState = props => {
         
         const tradedata = {trade: tradeName}
         console.log(tradedata)
-        const res = await fetch('http://localhost:5000/addtrade/', {
+        await fetch('http://localhost:5000/addtrade/', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -129,7 +144,7 @@ const BidTrackState = props => {
         })
         
         //Update the state with the new trade
-        fetchBids()
+        fetchTrades()
         
         // Call the loadTrade function to load the new trade into the title and show its state of bids
         loadTrade(tradeName)
@@ -147,12 +162,12 @@ const BidTrackState = props => {
 
     // Remove a trade from the database and toggle the toggleRemoveTrade off
     const removeTrade = async (tradeName) => {
-        const res = await fetch(`http://localhost:5000/removetrade/${tradeName}`, {
+        await fetch(`http://localhost:5000/removetrade/${tradeName}`, {
         method: 'DELETE',
         })
 
         //Update the state with the new trade state
-        fetchBids()
+        fetchTrades()
 
         // Update the selectrade to default
         dispatch({type: RESET_SELECTED_TRADE, payload: 'default'})
@@ -170,12 +185,14 @@ const BidTrackState = props => {
         <bidtrackContext.Provider 
             value={{
                 trades: state.trades,
-                bids: state.bids,
+                tradebids: state.tradebids,
+                allbids: state.allbids,
                 selectedbid: state.selectedbid,
                 selectedtrade: state.selectedtrade,
                 showAddTrade: state.showAddTrade,
                 showRemoveTrade: state.showRemoveTrade,
-                fetchBids, 
+                fetchBids,
+                fetchTrades,
                 fetchBid, 
                 addBid, 
                 deleteBid, 
@@ -184,7 +201,8 @@ const BidTrackState = props => {
                 addTrade,
                 toggleAddTrade,
                 removeTrade,
-                toggleRemoveTrade
+                toggleRemoveTrade,
+                getLowestBids
         }}>
             {props.children}
         </bidtrackContext.Provider>

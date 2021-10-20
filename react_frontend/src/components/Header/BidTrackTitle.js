@@ -1,10 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function BidTrackTitle() {
     return (
-        <div>
-            <h1>Construction Bid Tracker</h1>
-        </div>
+                <h1 ><Link to='/' style={{color: 'white', textDecoration: 'none'}}>Construction Bid Tracker</Link></h1>
     )
 }
 

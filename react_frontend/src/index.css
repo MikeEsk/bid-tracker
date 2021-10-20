@@ -43,7 +43,7 @@ html, body {
 }
 
 
-.header-main a {
+.header-main-repo {
   color: white;
   background-color: var(--danger-color);
   padding: 4px;
@@ -93,8 +93,6 @@ html, body {
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  min-height: 30px;
-  border: 1px solid steelblue;
   padding: 10px;
 }
 
@@ -144,8 +142,6 @@ html, body {
   margin-left: 20px;
   min-height: 300px;
   
-  /*border: 1px solid steelblue;
-  border-radius: 5px;*/
 }
 
 footer {
@@ -154,6 +150,34 @@ footer {
   text-align: center;
   justify-content: flex-end;
 }
+
+
+/* ---- BidTrackSummary ---- */
+
+.summary-table {
+  font-family: inherit;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.summary_table td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.summary-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--header-color);
+  color: white;
+}
+
+
+.summary-table tr:hover {
+  background-color: #ddd;
+}
+
 
 
 /* --- BidTrackNav  ---- */
@@ -249,7 +273,6 @@ footer {
 }
 
 .btn {
-  display: inline-block;
   background: #000;
   color: #fff;
   border: none;
@@ -260,6 +283,10 @@ footer {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+}
+
+.btn-trade {
+  display: flex;
 }
 
 .btn:focus {

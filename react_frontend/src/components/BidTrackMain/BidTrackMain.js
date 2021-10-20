@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import bidtrackContext from '../../context/trades/bidtrackContext'
 import BidTrackContent from './BidTrackContent/BidTrackContent'
 import BidTrackNav from './BidTrackNav/BidTrackNav'

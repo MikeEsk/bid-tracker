@@ -1,6 +1,5 @@
 import React from 'react'
 import {BrowserRouter as Router} from 'react-router-dom'
-import axios from 'axios'
 
 //Import components
 import Header from './components/Header/Header'
