@@ -5,8 +5,8 @@ function BidSum({bid}) {
             <tr>
                 <td></td>
                 <td>{bid.company}</td>
-                <td>{bid.price}</td>
-                <td>{bid.reviewed ? 'Yes':'No'}</td>
+                <td style={{textAlign:'center'}}>${bid.price}</td>
+                <td style={{textAlign:'center'}}>{bid.reviewed ? 'Yes':'No'}</td>
                 <td></td>
             </tr>
     )

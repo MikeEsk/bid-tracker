@@ -42,24 +42,35 @@ app.get('/trades/:trade', async (req, res) => {
         const {trade} = req.params;
         const tradedata = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1", [trade]);
         
-        res.json(tradedata.rows)
+        res.json(tradedata.rows);
         
     } catch (err) {
         console.error(err.message);
     }
 })
 
-/*
-//Get lowest trade bid
+
+//Get lowest bids for all trades
 app.get('/lowestbids', async (req,res) => {
     try {
-        const {trades} = req.params;
-        const lowestbid = await pool.query("SELECT MIN(price) FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1", [trade])")
+        const allTrades = await pool.query("SELECT * FROM trades ORDER BY trade ASC")
+        const tradedata = allTrades.rows;
+        const lowestbids = {};
+
+        for (let i = 0; i < tradedata.length; i++) {
+            const tradeName = tradedata[i].trade;
+            const lowestbid = await pool.query("SELECT MIN(price) FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1", [tradeName]);
+            lowestbids[tradeName] = lowestbid.rows[0].min;
+            console.log(lowestbids);
+        }
+        res.json(lowestbids);
+        
+
     } catch (err) {
-        console.error(err.message)
+        console.error(err.message);
     }
 })
-*/
+
 
 
 // *****  POST ROUTES  *********

@@ -11,11 +11,24 @@ function BidTrackBidSum() {
         const getAllBids = async () => {
             await bidContext.fetchTrades()
             await bidContext.fetchBids()
+            await bidContext.getLowestBids()
         }
         getAllBids()
-        console.log(bidContext.allbids)
 
     }, [])
+
+    const getTotal = () => {
+        var total =  0;
+        const prices = bidContext.lowestbids;
+        
+        Object.values(prices).forEach(val => {
+            total += parseInt(val)
+        })
+
+        return total
+    }
+
+    const grandtotal = getTotal()
 
     
     return (
@@ -41,7 +54,7 @@ function BidTrackBidSum() {
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td></td>
+                                <td style={{textAlign:'center'}}>${bidContext.lowestbids[tradeName.trade]}</td>
                             </tr>
 
                             {bidContext.allbids.map((bid) => (
@@ -52,9 +65,16 @@ function BidTrackBidSum() {
                         </React.Fragment>)    
                     )}
                 </tbody>
+                <tfoot>
+                    <td>Project Total</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style={{textAlign:'center'}}>${grandtotal}</td>
+                </tfoot>
             </table>
         </div>
     )
-} 
+}
 
 export default BidTrackBidSum

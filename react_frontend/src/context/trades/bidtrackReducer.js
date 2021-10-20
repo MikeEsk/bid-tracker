@@ -6,6 +6,7 @@ import {
     DELETE_BID,
     TOGGLE_REVIEWED,
     LOAD_TRADE_DATA,
+    SET_LOWEST_BIDS,
     CLEAR_BIDS,
     TOGGLE_ADD_TRADE,
     TOGGLE_REMOVE_TRADE,
@@ -63,6 +64,12 @@ const bidtrackReducer = (state, action) => {
                 selectedtrade: action.payload.selectedtrade,
                 tradebids: action.payload.tradedata
             };
+
+        case SET_LOWEST_BIDS:
+            return {
+                ...state,
+                lowestbids: action.payload
+            }
 
         case CLEAR_BIDS:
             return {

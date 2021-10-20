@@ -10,6 +10,7 @@ import {
     DELETE_BID,
     TOGGLE_REVIEWED,
     LOAD_TRADE_DATA,
+    SET_LOWEST_BIDS,
     CLEAR_BIDS,
     TOGGLE_ADD_TRADE,
     TOGGLE_REMOVE_TRADE,
@@ -22,6 +23,7 @@ const BidTrackState = props => {
         trades: [],
         tradebids: [],
         allbids: [],
+        lowestbids: {},
         selectedbid: '',
         selectedtrade: 'default',
         showAddTrade: false,
@@ -109,10 +111,17 @@ const BidTrackState = props => {
 
 
     // Get the lowest bid for a specific trade
-    const getLowestBids = async (trades) => {
-        console.log(trades)
+    const getLowestBids = async () => {
+        /*await fetch('http://localhost:5000/lowestbids').then(res =>
+            res.json().then(data => {
+                dispatch({type: SET_LOWEST_BIDS, payload: data})
+            })
+        )*/
         
-        
+        const res = await fetch(`http://localhost:5000/lowestbids`)
+        const data = await res.json()
+        dispatch({type: SET_LOWEST_BIDS, payload: data})
+
         
     }
 
@@ -187,6 +196,7 @@ const BidTrackState = props => {
                 trades: state.trades,
                 tradebids: state.tradebids,
                 allbids: state.allbids,
+                lowestbids: state.lowestbids,
                 selectedbid: state.selectedbid,
                 selectedtrade: state.selectedtrade,
                 showAddTrade: state.showAddTrade,

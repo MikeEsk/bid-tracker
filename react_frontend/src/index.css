@@ -178,6 +178,10 @@ footer {
   background-color: #ddd;
 }
 
+.summary-table tfoot {
+  font-size: 25px;
+}
+
 
 
 /* --- BidTrackNav  ---- */
