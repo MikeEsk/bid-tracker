@@ -1,3 +1,4 @@
+export const LOGIN_USER = 'LOGIN_USER';
 export const GET_BIDS = 'GET_BIDS';
 export const GET_TRADES = 'GET_TRADES';
 export const SELECTED_BID = 'SELECTED_BID';

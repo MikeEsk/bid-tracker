@@ -3,6 +3,7 @@ import bidtrackContext from './bidtrackContext';
 import bidtrackReducer from './bidtrackReducer';
 
 import {
+    LOGIN_USER,
     GET_BIDS,
     GET_TRADES,
     SELECTED_BID,
@@ -19,6 +20,8 @@ import {
 
 const BidTrackState = props => {
     const initialState = {
+        user_name: '',
+        user_id: '',
         showAddBid: false,
         trades: [],
         tradebids: [],
@@ -30,12 +33,42 @@ const BidTrackState = props => {
         showRemoveTrade: false
     }
 
-    const [state, dispatch] = useReducer(bidtrackReducer, initialState);
+    const [state, dispatch] = useReducer(bidtrackReducer, initialState)
 
+    const url = 'http://localhost:5000'
+
+    /////REMOVE TEST
+    localStorage.bid_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZjEyOTZhNjktMTI5ZC00MDUyLWJkNmYtYTNjYmZkZWFjZmJjIn0sImlhdCI6MTYzNTE3NTE1MywiZXhwIjoxNjM1MTc4NzUzfQ.PePiDPzGD0hnhWaiP5m3iX40OflFqEKbDwRk3q9otEA'
+
+
+    // Login the User
+    const loginUser = async (user_email, user_password) => {
+        const res = await fetch(`${url}/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: {
+                'email': user_email,
+                'password': user_password
+            }
+        })
+        const data = await res.json()
+        console.log(data)
+
+        dispatch({type: LOGIN_USER, payload: data})
+
+    }
+    
     
     // Get Bids
     const fetchBids = async () => {
-        const res = await fetch('http://localhost:5000/bids')
+        const res = await fetch(`${url}/user/bids`, {
+            method: 'GET',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
+        })
         const data = await res.json()
         
         dispatch({type: GET_BIDS, payload: data})
@@ -44,7 +77,12 @@ const BidTrackState = props => {
     
     // Get Trades
     const fetchTrades = async () => {
-        const res = await fetch('http://localhost:5000/trades')
+        const res = await fetch(`${url}/user/trades`, {
+            method: 'GET',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
+        })
         const data = await res.json()
         
         dispatch({type: GET_TRADES, payload: data})
@@ -54,7 +92,12 @@ const BidTrackState = props => {
 
     // Get Bid
     const fetchBid = async (id) => {
-        const res = await fetch(`http://localhost:5000/bids/${id}`)
+        const res = await fetch(`${url}/user/${id}`, {
+            method: 'GET',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
+        })
         const data = await res.json()
         console.log(data)
         
@@ -67,10 +110,11 @@ const BidTrackState = props => {
     const addBid = async (bid) => {
         //Is passed company, price, and reviewed from 'bid'
         
-        const response = await fetch('http://localhost:5000/bids/', {
+        const response = await fetch(`${url}/user/bids/`, {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                bidtrack_jwttoken: localStorage.bid_token
             },
             body: JSON.stringify(bid)
         })
@@ -82,8 +126,11 @@ const BidTrackState = props => {
 
     // Delete Bid
     const deleteBid = async (id) => {
-        await fetch(`http://localhost:5000/bids/${id}`, {
+        await fetch(`${url}/user/bids/${id}`, {
         method: 'DELETE',
+        headers: {
+            bidtrack_jwttoken: localStorage.bid_token
+            }
         })
         dispatch({type: DELETE_BID, payload: id})
 
@@ -91,8 +138,11 @@ const BidTrackState = props => {
 
     // Toggle Reviewed when bid is double clicked
     const toggleReviewed = async (id) => {
-        const response = await fetch(`http://localhost:5000/bids/${id}`, {
+        const response = await fetch(`${url}/user/bids/${id}`, {
             method: 'PUT',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            },
         })
         const data = await response.json()
         dispatch({type: TOGGLE_REVIEWED, payload: {id, data}})
@@ -102,7 +152,12 @@ const BidTrackState = props => {
     // Load trades to BidTrackerContent from BidTrackerNav selection
     const loadTrade = async (trade) => {
         clearBids()
-        const res = await fetch(`http://localhost:5000/trades/${trade}`)
+        const res = await fetch(`${url}/user/trades/${trade}`, {
+            method: 'GET',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
+        })
         const data = await res.json()
         dispatch({type: LOAD_TRADE_DATA, payload: {selectedtrade: trade, tradedata: data}})
 
@@ -111,18 +166,15 @@ const BidTrackState = props => {
 
 
     // Get the lowest bid for a specific trade
-    const getLowestBids = async () => {
-        /*await fetch('http://localhost:5000/lowestbids').then(res =>
-            res.json().then(data => {
-                dispatch({type: SET_LOWEST_BIDS, payload: data})
-            })
-        )*/
-        
-        const res = await fetch(`http://localhost:5000/lowestbids`)
+    const getLowestBids = async () => {    
+        const res = await fetch(`${url}/user/lowestbids`, {
+            method: 'GET',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
+        })
         const data = await res.json()
         dispatch({type: SET_LOWEST_BIDS, payload: data})
-
-        
     }
 
 
@@ -144,10 +196,11 @@ const BidTrackState = props => {
         
         const tradedata = {trade: tradeName}
         console.log(tradedata)
-        await fetch('http://localhost:5000/addtrade/', {
+        await fetch(`${url}/user/addtrade/`, {
             method: 'POST',
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                bidtrack_jwttoken: localStorage.bid_token
             },
             body: JSON.stringify(tradedata)
         })
@@ -171,8 +224,11 @@ const BidTrackState = props => {
 
     // Remove a trade from the database and toggle the toggleRemoveTrade off
     const removeTrade = async (tradeName) => {
-        await fetch(`http://localhost:5000/removetrade/${tradeName}`, {
-        method: 'DELETE',
+        await fetch(`${url}/user/removetrade/${tradeName}`, {
+            method: 'DELETE',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
         })
 
         //Update the state with the new trade state
@@ -193,6 +249,8 @@ const BidTrackState = props => {
     return (
         <bidtrackContext.Provider 
             value={{
+                user_name: state.user_name,
+                user_id: state.user_id,
                 trades: state.trades,
                 tradebids: state.tradebids,
                 allbids: state.allbids,
@@ -201,6 +259,7 @@ const BidTrackState = props => {
                 selectedtrade: state.selectedtrade,
                 showAddTrade: state.showAddTrade,
                 showRemoveTrade: state.showRemoveTrade,
+                loginUser,
                 fetchBids,
                 fetchTrades,
                 fetchBid, 

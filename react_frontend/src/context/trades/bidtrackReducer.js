@@ -1,4 +1,5 @@
 import {
+    LOGIN_USER,
     GET_BIDS,
     GET_TRADES,
     SELECTED_BID,
@@ -18,6 +19,12 @@ import {
 const bidtrackReducer = (state, action) => {
     switch (action.type) {
 
+        case LOGIN_USER:
+            return {
+                //***TODO ****/
+                ...state
+            };
+        
         case GET_BIDS:
             return {
                 ...state,
