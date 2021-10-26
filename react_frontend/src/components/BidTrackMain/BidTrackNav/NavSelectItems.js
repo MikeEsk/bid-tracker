@@ -9,17 +9,19 @@ function NavSelectItems() {
     const bidContext = useContext(bidtrackContext)
 
     return (
-        <div style={{alignContent:'center'}}>
+        <React.Fragment>
             <Route path='/bids' exact render={() => (
                 <React.Fragment>
+                    {bidContext.trades.length === 0 && <span>No Trades</span>}
                     <ul className='navselectitems'>
                         {bidContext.trades.map(trade =>
                             <li onClick={(e) => bidContext.loadTrade(e.target.textContent)} key={trade.trade_id} value={trade.trade} className='navselectitem'>{trade.trade}</li>
                         )}
                     </ul>
-
-                    <NavSelectTradeBtn title='Add Trade' color='green' toggle={bidContext.toggleAddTrade}/>
-                    <NavSelectTradeBtn title='Remove Trade' color='red' toggle={bidContext.toggleRemoveTrade}/>
+                    <div className='navselect-tradebtns'>
+                        <NavSelectTradeBtn title='Add Trade' color='green' toggle={bidContext.toggleAddTrade}/>
+                        <NavSelectTradeBtn title='Remove Trade' color='red' toggle={bidContext.toggleRemoveTrade}/>
+                    </div>
                 </React.Fragment>)}
             />
                 
@@ -43,7 +45,7 @@ function NavSelectItems() {
                     </div>
                 )}
             />
-        </div>
+        </React.Fragment>
 
     )
 }

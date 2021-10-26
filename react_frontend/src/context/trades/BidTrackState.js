@@ -3,7 +3,11 @@ import bidtrackContext from './bidtrackContext';
 import bidtrackReducer from './bidtrackReducer';
 
 import {
+    REGISTER_USER,
     LOGIN_USER,
+    LOGOUT_USER,
+    AUTHORIZE_USER,
+    LOAD_USER,
     GET_BIDS,
     GET_TRADES,
     SELECTED_BID,
@@ -20,6 +24,7 @@ import {
 
 const BidTrackState = props => {
     const initialState = {
+        authStatus: false,
         user_name: '',
         user_id: '',
         showAddBid: false,
@@ -37,33 +42,98 @@ const BidTrackState = props => {
 
     const url = 'http://localhost:5000'
 
-    /////REMOVE TEST
-    localStorage.bid_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiZjEyOTZhNjktMTI5ZC00MDUyLWJkNmYtYTNjYmZkZWFjZmJjIn0sImlhdCI6MTYzNTE3NTE1MywiZXhwIjoxNjM1MTc4NzUzfQ.PePiDPzGD0hnhWaiP5m3iX40OflFqEKbDwRk3q9otEA'
+
+    // Register the user
+    const registerUser = async (email, user, password) => {
+        try {
+            const body = {email, user, password}
+            const res = await fetch(`${url}/auth/register`,
+                {
+                    method: "POST",
+                    headers: {
+                    "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                }
+            )
+            const data = await res.json()
+
+            console.log(data)
 
 
+
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
+    
+    
     // Login the User
-    const loginUser = async (user_email, user_password) => {
-        const res = await fetch(`${url}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-            },
-            body: {
-                'email': user_email,
-                'password': user_password
+    const loginUser = async (email, password) => {
+        
+        try {
+            const body = { email, password }
+            const res = await fetch(`${url}/auth/login`,
+                {
+                    method: "POST",
+                    headers: {
+                    "Content-type": "application/json"
+                    },
+                    body: JSON.stringify(body)
+                })
+    
+            const data = await res.json()
+    
+            if (data.bidtrack_jwttoken) {
+                //If token is valid, store in local storage for 1 hr session
+                localStorage.setItem("bid_token", data.bidtrack_jwttoken)
+                
+                //Change login state to true
+                dispatch({type: AUTHORIZE_USER})
+
+                //Set User name and ID
+                loadUser()
+    
+            } else {
+                //**UPDATE LOGIN STATE TO FALSE*/
+                alert("Failed to Log In")
             }
-        })
-        const data = await res.json()
-        console.log(data)
+        } catch (err) {
+            console.error(err.message)
+        }
 
-        dispatch({type: LOGIN_USER, payload: data})
+    }
 
+    // Load user
+    const loadUser = async () => {
+        try {
+            const res = await fetch(`${url}/user/loaduser`, {
+                method: "POST",
+                headers: { bidtrack_jwttoken: localStorage.bid_token}
+            })
+    
+            const data = await res.json()
+
+            if (data.msg === 'Success') {
+                dispatch({type: AUTHORIZE_USER})
+                dispatch({type: LOGIN_USER, payload: data})
+            }
+            
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
+
+    // Logout the user
+    const logoutUser = () => {
+        localStorage.bid_token = "",
+        dispatch({type: LOGOUT_USER})
     }
     
     
     // Get Bids
     const fetchBids = async () => {
-        const res = await fetch(`${url}/user/bids`, {
+        const res = await fetch(`${url}/user/bids/`, {
             method: 'GET',
             headers: {
                 bidtrack_jwttoken: localStorage.bid_token
@@ -195,7 +265,6 @@ const BidTrackState = props => {
     const addTrade = async (tradeName) => {
         
         const tradedata = {trade: tradeName}
-        console.log(tradedata)
         await fetch(`${url}/user/addtrade/`, {
             method: 'POST',
             headers: {
@@ -249,6 +318,7 @@ const BidTrackState = props => {
     return (
         <bidtrackContext.Provider 
             value={{
+                authStatus: state.authStatus,
                 user_name: state.user_name,
                 user_id: state.user_id,
                 trades: state.trades,
@@ -259,7 +329,10 @@ const BidTrackState = props => {
                 selectedtrade: state.selectedtrade,
                 showAddTrade: state.showAddTrade,
                 showRemoveTrade: state.showRemoveTrade,
+                registerUser,
                 loginUser,
+                loadUser,
+                logoutUser,
                 fetchBids,
                 fetchTrades,
                 fetchBid, 
