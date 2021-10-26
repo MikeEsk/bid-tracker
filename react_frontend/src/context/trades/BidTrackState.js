@@ -58,8 +58,20 @@ const BidTrackState = props => {
             )
             const data = await res.json()
 
-            console.log(data)
+            if (data.bidtrack_jwttoken) {
+                //If token is valid, store in local storage for 1 hr session
+                localStorage.setItem("bid_token", data.bidtrack_jwttoken)
+                
+                //Change login state to true
+                dispatch({type: AUTHORIZE_USER})
 
+                //Set User name and ID
+                await loadUser()
+    
+            } else {
+                //**UPDATE LOGIN STATE TO FALSE*/
+                alert("Failed to Register")
+            }
 
 
         } catch (err) {
@@ -92,7 +104,7 @@ const BidTrackState = props => {
                 dispatch({type: AUTHORIZE_USER})
 
                 //Set User name and ID
-                loadUser()
+                await loadUser()
     
             } else {
                 //**UPDATE LOGIN STATE TO FALSE*/
@@ -275,10 +287,10 @@ const BidTrackState = props => {
         })
         
         //Update the state with the new trade
-        fetchTrades()
+        await fetchTrades()
         
         // Call the loadTrade function to load the new trade into the title and show its state of bids
-        loadTrade(tradeName)
+        await loadTrade(tradeName)
         
         //Call the toggleAddTrade function to toggle off the form
         toggleAddTrade()
@@ -301,7 +313,7 @@ const BidTrackState = props => {
         })
 
         //Update the state with the new trade state
-        fetchTrades()
+        await fetchTrades()
 
         // Update the selectrade to default
         dispatch({type: RESET_SELECTED_TRADE, payload: 'default'})

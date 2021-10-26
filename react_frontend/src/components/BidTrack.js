@@ -27,7 +27,7 @@ function BidTrack() {
                         render={() => !bidContext.authStatus ? (
                         <Login  />
                         ) : (
-                        <Redirect to="/home" />
+                        <Redirect to="/" />
                         )}/>
                     
                     
@@ -35,11 +35,11 @@ function BidTrack() {
                         render={() => !bidContext.authStatus ? (
                         <Register  />
                         ) : (
-                        <Redirect to="/home" />
+                        <Redirect to="/" />
                     )}/>
 
 
-                    <Route exact path="/home" 
+                    <Route path="/" 
                         render={() => bidContext.authStatus ? (
                             <React.Fragment >
                                 <Router>

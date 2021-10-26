@@ -19,7 +19,6 @@ router.get('/bids', authorize_user, async (req, res) => {
     try {
         // ***TODO***:  NEED TO CLEAN THIS QUERY UP
         const allBids = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND bids.user_id = trades.user_id AND bids.user_id = $1", [user_id]);
-        console.log()
         res.json(allBids.rows);
         
     } catch (err) {
@@ -44,11 +43,9 @@ router.get('/trades/:trade', authorize_user, async (req, res) => {
     try {
         const user_id = String(req.user.id)
         const {trade} = req.params;
-        console.log(user_id, trade);
         // ***TODO***:  NEED TO CLEAN THIS QUERY UP
         const tradedata = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1 AND bids.user_id = trades.user_id AND bids.user_id = $2", [trade, user_id]);
         
-        console.log(tradedata.rows)
         res.json(tradedata.rows);
         
     } catch (err) {
@@ -177,12 +174,22 @@ router.delete('/bids/:id', authorize_user, async (req, res) => {
 //Delete a trade
 router.delete('/removetrade/:tradeName', authorize_user, async (req, res) => {
     
-    //**TODO DELETE ALL BIDS ASSOCIATED WITH THE TRADE */
     try {
         const user_id = req.user.id;
         const {tradeName} = req.params;
-        const delBid = await pool.query("DELETE FROM trades WHERE trade = $1 AND bids.user_id = $2", [tradeName, user_id]);
-        res.json("The bid was sucessfully deleted");
+
+        //Delete bids and companies associated with trade
+        const bidstoDelete = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1 AND bids.user_id = trades.user_id AND bids.user_id = $2", [tradeName, user_id]);
+        
+        bidstoDelete.rows.forEach(async bid => {
+            await pool.query("DELETE FROM bids WHERE bid_id = $1", [bid.bid_id]);
+            await pool.query("DELETE FROM companies WHERE company_id = $1", [bid.company_id]);
+        });
+
+        //Delete trade
+        const tradeDelete = await pool.query("DELETE FROM trades WHERE trade = $1 AND user_id = $2", [tradeName, user_id]);
+        
+        res.json("The trade and associated bids and companies were sucessfully deleted");
         
     } catch (err) {
         console.error(err.message);

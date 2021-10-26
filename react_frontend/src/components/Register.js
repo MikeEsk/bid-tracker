@@ -31,13 +31,13 @@ function Register() {
                     <br></br>
                     <form onSubmit={submitForm} className='login'>
                         <label>Email</label>
-                        <input type="text" name="email" value={email} onChange={event => onChange(event)}/>
+                        <input type="text" name="email" value={email} onChange={event => onChange(event)} autoComplete="off"/>
 
                         <label>Name</label>
-                        <input type="text" name="user" value={user} onChange={event => onChange(event)}/>
+                        <input type="text" name="user" value={user} onChange={event => onChange(event)} autoComplete="off"/>
 
                         <label>Password</label>
-                        <input type="password" name="password" value={password} onChange={event => onChange(event)}/>
+                        <input type="password" name="password" value={password} onChange={event => onChange(event)} autoComplete="off"/>
                         <button>Submit</button>
                     </form>
                     <br></br>
