@@ -1,4 +1,7 @@
 import {
+    AUTHORIZE_USER,
+    LOGIN_USER,
+    LOGOUT_USER,
     GET_BIDS,
     GET_TRADES,
     SELECTED_BID,
@@ -17,7 +20,36 @@ import {
 
 const bidtrackReducer = (state, action) => {
     switch (action.type) {
-
+        
+        case AUTHORIZE_USER:
+            return {
+                ...state,
+                authStatus: true
+            };
+        
+        case LOGIN_USER:
+            return {
+                ...state,
+                user_name: action.payload.user_name,
+                user_id: action.payload.user_id
+            };
+        
+        case LOGOUT_USER:
+            return {
+                authStatus: false,
+                user_name: '',
+                user_id: '',
+                showAddBid: false,
+                trades: [],
+                tradebids: [],
+                allbids: [],
+                lowestbids: {},
+                selectedbid: '',
+                selectedtrade: 'default',
+                showAddTrade: false,
+                showRemoveTrade: false
+            };
+        
         case GET_BIDS:
             return {
                 ...state,

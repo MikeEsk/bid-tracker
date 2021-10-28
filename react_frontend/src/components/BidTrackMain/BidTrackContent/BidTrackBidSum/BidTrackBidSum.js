@@ -20,16 +20,19 @@ function BidTrackBidSum() {
     const getTotal = () => {
         var total =  0;
         const prices = bidContext.lowestbids;
-        
         Object.values(prices).forEach(val => {
-            total += parseInt(val)
+            (val === null ? total += 0: total += parseInt(val, 10))
         })
-
         return total
     }
 
-    const grandtotal = getTotal()
+    var formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0
+    });
 
+    const grandtotal = getTotal()
     
     return (
         <div>
@@ -48,17 +51,17 @@ function BidTrackBidSum() {
                 <tbody>
                     
                     {bidContext.trades.map((tradeName) => (
-                        <React.Fragment>
+                        <React.Fragment key={tradeName.trade_id}>
                             <tr style={{borderBottom:'solid 1px'}}>
                                 <td>{tradeName.trade}</td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
-                                <td style={{textAlign:'center'}}>${bidContext.lowestbids[tradeName.trade]}</td>
+                                <td style={{textAlign:'center'}}>{formatter.format(bidContext.lowestbids[tradeName.trade])}</td>
                             </tr>
 
                             {bidContext.allbids.map((bid) => (
-                                <React.Fragment>
+                                <React.Fragment key={bid.bid_id}>
                                     {bid.trade===tradeName.trade && <BidSum bid={bid}/>}
                                 </React.Fragment>
                             ))}
@@ -66,11 +69,13 @@ function BidTrackBidSum() {
                     )}
                 </tbody>
                 <tfoot>
-                    <td>Project Total</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td style={{textAlign:'center'}}>${grandtotal}</td>
+                    <tr>
+                        <td>Project Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style={{textAlign:'center'}}>{formatter.format(grandtotal)}</td>
+                    </tr>
                 </tfoot>
             </table>
         </div>

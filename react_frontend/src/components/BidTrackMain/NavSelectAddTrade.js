@@ -9,9 +9,7 @@ function NavSelectAddTrade() {
     
     const submitForm = (e) => {
         e.preventDefault()
-        console.log(trade)
         bidContext.addTrade(trade)
-
         setTrade('')
     }
     

@@ -28,6 +28,55 @@ html, body {
   height: 100%;
 }
 
+/* ----- img ----*/
+
+img {
+  width: 150%;
+  margin-top: 0px;
+  margin-left: 50px;
+  object-fit: cover;
+}
+
+
+/* ---- Login -------- */
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--bidtrackcontent-color);
+  width: 100%;
+  height: 100%;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 50%;
+}
+
+.login input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.login button {
+  font-family: inherit;
+  background-color: var(--navbar-color);
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  margin-top: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
 
 
 /* ----  Header  ------ */
@@ -100,8 +149,8 @@ html, body {
   background: var(--bidtracknav-color);
   color: black;
   border: none;
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 5px 30px;
+  margin: 3px;
   border-radius: 5px;
   cursor: pointer;
   text-decoration: none;
@@ -118,6 +167,7 @@ html, body {
 
 .bidtrackmain {
   display: flex;
+  background-color: var(--bidtrackcontent-color);
   justify-content: space-evenly;
   height: 100%
 }
@@ -125,14 +175,18 @@ html, body {
 
 /* --- BidTrackContent  ---- */
 
-.bidtrackcontent {
+.bidtrackcontent-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  background-color: var(--bidtrackcontent-color);
   width: 80%;
   height: 100%;
   
+}
+
+.bidtrackcontent {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
 }
 
 .container {
@@ -145,7 +199,7 @@ html, body {
 }
 
 footer {
-  margin-top: 20px;
+  margin-top: auto;
   margin-bottom: 20px;
   text-align: center;
   justify-content: flex-end;
@@ -189,7 +243,10 @@ footer {
 .bidtracknav {
   display: flex;
   background-color: var(--bidtracknav-color);
-  width: 20%;
+  margin-left: 0;
+  margin-right: auto;
+  padding: 10px;
+  min-width: 15%;
   flex-direction: column;
   align-items: center;
 }
@@ -199,6 +256,7 @@ footer {
   text-decoration: underline;
   font-size: 20px;
   font-family: inherit;
+  text-align: center;
 }
 
 .navselectitems {
@@ -259,7 +317,22 @@ footer {
   opacity: 0.8;
 }
 
+.navselect-tradebtns {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  margin-bottom: 15px;
+}
 
+
+
+
+/* ----  BidTrackLandingPage  ---- */
+
+.bidtrack-landingpage {
+  margin: 10%;
+  color: white;
+}
 
 
 
@@ -276,35 +349,6 @@ footer {
   margin-bottom: 20px;
 }
 
-.btn {
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  margin: 5px;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 15px;
-  font-family: inherit;
-}
-
-.btn-trade {
-  display: flex;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.btn:active {
-  transform: scale(0.96);
-}
-
-.btn-block {
-  display: block;
-  width: 100%;
-}
 
 .bid {
   background: var(--bidtracknav-color);
@@ -335,7 +379,6 @@ footer {
 .form-control label {
   display: block;
 }
-
 .form-control input {
   width: 100%;
   height: 40px;
@@ -360,8 +403,47 @@ footer {
 }
 
 
+/* ----  Buttons  ---- */
 
 
+.btn {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.btn-trade {
+  align-self: center;
+  text-align: center;
+  width: 100%;
+  font-size: 12px;
+}
+
+.btn-logout {
+  margin: 5px;
+  padding: 5px 15px;
+  background: var(--navbar-color);
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
 
 
 
