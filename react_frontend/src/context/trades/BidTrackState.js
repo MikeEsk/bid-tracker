@@ -138,7 +138,7 @@ const BidTrackState = props => {
 
     // Logout the user
     const logoutUser = () => {
-        localStorage.bid_token = "",
+        localStorage.bid_token = ""
         dispatch({type: LOGOUT_USER})
     }
     
