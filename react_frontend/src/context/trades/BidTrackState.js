@@ -312,8 +312,9 @@ const BidTrackState = props => {
             }
         })
 
-        //Update the state with the new trade state
+        //Update the state with the new trade state and reload trade for display
         await fetchTrades()
+        await loadTrade()
 
         // Update the selectrade to default
         dispatch({type: RESET_SELECTED_TRADE, payload: 'default'})

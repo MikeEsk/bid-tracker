@@ -11,7 +11,7 @@ function BidTrackContent() {
     return (
         <div className='bidtrackcontent-container'>
             <div className='bidtrackcontent'>
-                <Route path='/' exact render={() => (<BidTrackLandingPage/>)}/>
+                <Route path='/' exact render={() => (<BidTrackLandingPage color={window.matchMedia("only screen and (max-width: 760px)").matches ? 'black' : 'white'}/>)}/>
                 <Route path='/bids' exact render={() => (<BidTrackBids/>)}/>
                 <Route path='/bidsummary' exact render={() => (<BidTrackBidSum/>)}/>
                 <Route path='/bidleveling' exact render={() => (<BidTrackBidLevel/>)}/>

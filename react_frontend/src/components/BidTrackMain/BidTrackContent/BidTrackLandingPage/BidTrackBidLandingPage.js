@@ -1,8 +1,8 @@
 import React from 'react'
 
-function BidTrackBidLandingPage() {
+function BidTrackBidLandingPage(props) {
     return (
-        <div className='bidtrack-landingpage'>
+        <div className='bidtrack-landingpage' style={{color: props.color, fontSize: props.size}}>
             <h1>Welcome to Construction Bid Tracker!</h1>
             <h3>The premier website for tracking construction bids!</h3> 
             <br></br> 

@@ -40,8 +40,13 @@ function NavSelectItems() {
             />
             
             <Route path='/about' exact render={() => (
-                    <div>
-                        Links
+                    <div style={{padding: '15px', textAlign:'center', color: 'blue', fontWeight:'bold'}}>
+                        <a target="rel-noopener" href="https://linkedin.com/in/michael-eskridge-b83bb7150">LinkedIn Profile</a>
+                        <br></br>
+                        <br></br>
+                        <a target="rel-noopener" href="mailto: mte0001@gmail.com">Contact</a>
+
+                        
                     </div>
                 )}
             />
