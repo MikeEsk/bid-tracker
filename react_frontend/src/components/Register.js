@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import bidtrackContext from "../context/trades/bidtrackContext";
+import Footer from '../components/BidTrackMain/BidTrackContent/Footer'
 
 
 function Register() {
@@ -28,6 +29,7 @@ function Register() {
             <div className='login-page'>
                 <div className='login-container'>
                     <h1>Please Register</h1>
+                    <i>This website is for portfolio demonstration purposes.  A fictitious email may be used.</i>
                     <br></br>
                     <form onSubmit={submitForm} className='login'>
                         <label>Email</label>
@@ -43,6 +45,9 @@ function Register() {
                     <br></br>
                     <h4>Already a member?</h4>
                     <Link to="/login">Login</Link>
+                    <br></br>
+                    <br></br>
+                    <Footer/>
                 </div>
             </div>
         </Fragment>

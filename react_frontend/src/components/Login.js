@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { useContext } from "react";
 import bidtrackContext from "../context/trades/bidtrackContext";
+import Footer from '../components/BidTrackMain/BidTrackContent/Footer'
 
 
 function Login() {
@@ -41,6 +42,9 @@ function Login() {
                     <br></br>
                     <h4>Not a member?</h4>
                     <Link to="/register">Register</Link>
+                    <br></br>
+                    <br></br>
+                    <Footer/>
                 </div>
             </div>
         </Fragment>

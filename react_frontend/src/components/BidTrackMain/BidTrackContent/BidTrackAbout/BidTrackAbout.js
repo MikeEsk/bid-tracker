@@ -3,7 +3,7 @@ import React from 'react'
 
 const BidTrackAbout = () => {
     return (
-        <div>
+        <div style={{marginTop: '10px'}}>
             <React.Fragment>
                 <h2>This website was created my Mike Eskridge as part of his web development portfolio.</h2>
                 <br></br>
@@ -11,7 +11,8 @@ const BidTrackAbout = () => {
                 </h4>
                 <br></br>
                 <h4>The website is deployed on an AWS EC2 instance using Ubuntu.  NGINX is used as a reverse proxy to allow for seamless interaction between the React front end and the Express API back end.</h4>
-                <Link to='/'>Go Back</Link>
+                <br></br>
+                <Link to='/'>Home</Link>
             </React.Fragment>
         </div>
     )

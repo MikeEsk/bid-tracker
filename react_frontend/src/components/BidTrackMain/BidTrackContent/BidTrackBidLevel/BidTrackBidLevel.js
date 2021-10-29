@@ -2,7 +2,7 @@ import React from 'react'
 
 function BidTrackBidLevel() {
     return (
-        <div>
+        <div style={{marginTop: '10px'}}>
             <h1>Bid Leveling</h1>
             <br></br>
             <h3>** Feature Coming Soon! **</h3>
