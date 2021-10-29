@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useLocation } from 'react-router'
 import bidtrackContext from '../../context/trades/bidtrackContext'
 import BidTrackContent from './BidTrackContent/BidTrackContent'
 import BidTrackNav from './BidTrackNav/BidTrackNav'
@@ -8,10 +9,11 @@ import NavSelectRemoveTrade from './NavSelectRemoveTrade'
 function BidTrackMain() {
 
     const bidContext = useContext(bidtrackContext)
+    const location = useLocation()
     
     return (
         <div className='bidtrackmain'>
-            <BidTrackNav/>
+            {location.pathname !== '/' && <BidTrackNav/>}
             <BidTrackContent/>
             {bidContext.showAddTrade && <NavSelectAddTrade/>}
             {bidContext.showRemoveTrade && <NavSelectRemoveTrade/>}

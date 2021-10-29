@@ -35,7 +35,7 @@ function BidTrackBidSum() {
     const grandtotal = getTotal()
     
     return (
-        <div>
+        <div className='summary-container'>
             <h1>Bid Summary</h1>
 
             <table className='summary-table'>

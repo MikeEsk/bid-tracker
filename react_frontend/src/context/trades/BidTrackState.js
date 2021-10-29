@@ -40,8 +40,8 @@ const BidTrackState = props => {
 
     const [state, dispatch] = useReducer(bidtrackReducer, initialState)
 
-    const url = 'http://localhost:5000'
-
+    // NODE_ENV = 'production' vs 'development' 
+    const url = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000'
 
     // Register the user
     const registerUser = async (email, user, password) => {
