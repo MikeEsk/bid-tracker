@@ -4,6 +4,7 @@ import {
     LOGOUT_USER,
     GET_BIDS,
     GET_TRADES,
+    TRADE_LEVEL,
     SELECTED_BID,
     ADD_BID,
     DELETE_BID,
@@ -44,6 +45,7 @@ const bidtrackReducer = (state, action) => {
                 tradebids: [],
                 allbids: [],
                 lowestbids: {},
+                bidlevelitems: [],
                 selectedbid: '',
                 selectedtrade: 'default',
                 showAddTrade: false,
@@ -60,6 +62,12 @@ const bidtrackReducer = (state, action) => {
             return {
                 ...state,
                 trades: action.payload
+            };
+
+        case TRADE_LEVEL:
+            return {
+                ...state,
+                bidlevelitems: action.payload
             };
 
         case SELECTED_BID:

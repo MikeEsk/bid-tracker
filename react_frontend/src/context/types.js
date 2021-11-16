@@ -3,6 +3,7 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_BIDS = 'GET_BIDS';
 export const GET_TRADES = 'GET_TRADES';
+export const TRADE_LEVEL = 'TRADE_LEVEL';
 export const SELECTED_BID = 'SELECTED_BID';
 export const ADD_BID = 'ADD_BID';
 export const DELETE_BID = 'DELETE_BID';

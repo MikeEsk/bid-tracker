@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import bidtrackContext from "../context/trades/bidtrackContext";
 import Footer from '../components/BidTrackMain/BidTrackContent/Footer'

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports = function(req, res, next) {
     //Pull token out of header
-    const token = req.header('bidtrack_jwttoken')
+    const token = req.header('bidtrack_jwttoken');
 
     if (!token) {
         return res.status(403).json({ msg: "Authorization is denied"});

@@ -10,6 +10,7 @@ import {
     LOAD_USER,
     GET_BIDS,
     GET_TRADES,
+    TRADE_LEVEL,
     SELECTED_BID,
     ADD_BID,
     DELETE_BID,
@@ -32,6 +33,7 @@ const BidTrackState = props => {
         tradebids: [],
         allbids: [],
         lowestbids: {},
+        bidlevelitems: [],
         selectedbid: '',
         selectedtrade: 'default',
         showAddTrade: false,
@@ -168,6 +170,21 @@ const BidTrackState = props => {
         const data = await res.json()
         
         dispatch({type: GET_TRADES, payload: data})
+
+
+    }
+
+    // Get BidLevelItems
+    const fetchBidLevelItems = async () => {
+        const res = await fetch(`${url}/user/tradelevel`, {
+            method: 'GET',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
+        })
+        const data = await res.json()
+        
+        dispatch({type: TRADE_LEVEL, payload: data})
 
 
     }
@@ -337,6 +354,7 @@ const BidTrackState = props => {
                 trades: state.trades,
                 tradebids: state.tradebids,
                 allbids: state.allbids,
+                bidlevelitems: state.bidlevelitems,
                 lowestbids: state.lowestbids,
                 selectedbid: state.selectedbid,
                 selectedtrade: state.selectedtrade,
@@ -348,6 +366,7 @@ const BidTrackState = props => {
                 logoutUser,
                 fetchBids,
                 fetchTrades,
+                fetchBidLevelItems,
                 fetchBid, 
                 addBid, 
                 deleteBid, 

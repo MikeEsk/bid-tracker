@@ -45,9 +45,22 @@ router.get('/trades/:trade', authorize_user, async (req, res) => {
         const {trade} = req.params;
         // ***TODO***:  NEED TO CLEAN THIS QUERY UP
         const tradedata = await pool.query("SELECT * FROM trades,bids,companies WHERE companies.trade=trades.trade AND companies.company=bids.company AND companies.trade = $1 AND bids.user_id = trades.user_id AND bids.user_id = $2", [trade, user_id]);
-        
+
         res.json(tradedata.rows);
         
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+//Get levelitems
+router.get('/tradelevel/', authorize_user, async (req, res) => {
+    try {
+        const user_id = String(req.user.id)
+        const levelitems = await pool.query("SELECT * FROM bids,bidlevelitems WHERE bids.bid_id = bidlevelitems.bid_id AND bids.user_id = $1", [user_id]);
+
+        res.json(levelitems.rows);
+
     } catch (err) {
         console.error(err.message);
     }

@@ -40,4 +40,12 @@ CREATE TABLE users(
   user_password VARCHAR(255) NOT NULL
 );
 
+    /* LEVELING FOR BIDS*/
+CREATE TABLE bidlevelitems (
+    bid_id INTEGER NOT NULL,
+    item SERIAL PRIMARY KEY,
+    item_name VARCHAR(255) NOT NULL,
+    price BIGINT NOT NULL
+);
+
 
