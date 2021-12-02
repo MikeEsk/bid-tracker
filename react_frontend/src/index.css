@@ -359,6 +359,36 @@ img {
 }
 
 
+
+/* ----- BidTrackLevel ---- */
+
+.itemform label {
+  margin-top: 20px;
+  margin-right: 3px;
+}
+
+.itemform button {
+  background: var(--header-color);
+  color: #fff;
+  border: none;
+  padding: 5px 8px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.itemform input {
+  padding: 5px;
+  margin: 8px 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+
+
+
+
 /* ----  BitTrackBids  ---- */
 
 

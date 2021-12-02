@@ -189,6 +189,28 @@ const BidTrackState = props => {
 
     }
 
+    // Add item to bid
+    const addItem = async (iteminputs) => {
+
+        try {
+            const res = await fetch(`${url}/user/additem`,
+                {
+                    method: "POST",
+                    headers: {
+                    "Content-type": "application/json",
+                    bidtrack_jwttoken: localStorage.bid_token
+                    },
+                    body: JSON.stringify(iteminputs)
+                })
+            const data = await res.json()
+            console.log(data)
+
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
+
+
     // Get Bid
     const fetchBid = async (id) => {
         const res = await fetch(`${url}/user/${id}`, {
@@ -367,6 +389,7 @@ const BidTrackState = props => {
                 fetchBids,
                 fetchTrades,
                 fetchBidLevelItems,
+                addItem,
                 fetchBid, 
                 addBid, 
                 deleteBid, 

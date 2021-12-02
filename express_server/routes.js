@@ -124,6 +124,21 @@ router.post("/bids", authorize_user, async (req, res) => {
     }
 })
 
+//Add item to a bid
+router.post("/additem", authorize_user, async (req, res) => {
+    try {
+        
+        const {item, price, bid_id, company} = req.body;
+
+        await pool.query("INSERT INTO bidlevelitems (bid_id, item_name, price) VALUES ($1, $2, $3)", [bid_id, item, price]);
+
+        res.json("Item was added")
+
+    } catch (err) {
+        console.error(err.message)
+    }
+})
+
 router.post("/addtrade/", authorize_user, async (req, res) => {
     try {
         const user_id = req.user.id;
