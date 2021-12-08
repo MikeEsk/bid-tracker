@@ -16,10 +16,8 @@ function BidTrackBidLevel() {
         getLevelData()
     }, [])
     
-    return (
-        <div style={{marginTop: '10px'}}>   
-            <TradeLevel/>
-        </div>
+    return (   
+        <TradeLevel/>
     )
 }
 

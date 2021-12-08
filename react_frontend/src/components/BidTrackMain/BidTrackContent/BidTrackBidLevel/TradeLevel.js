@@ -9,11 +9,11 @@ function TradeLevel() {
     const bidContext = useContext(bidtrackContext)
 
     return (
-        <React.Fragment>
+        <div className='container'>
                 <h1>{bidContext.selectedtrade !== 'default' ? bidContext.selectedtrade : 'Please select a trade'}</h1>
                 {bidContext.tradebids.length > 0 ? <BidLevel bids={bidContext.tradebids} items={bidContext.bidlevelitems}/> : bidContext.selectedtrade !== 'default' && 'There are no bids'}
                 <br></br>
-        </React.Fragment>
+        </div>
 
     )
 }

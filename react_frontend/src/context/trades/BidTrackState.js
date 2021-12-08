@@ -11,9 +11,11 @@ import {
     GET_BIDS,
     GET_TRADES,
     TRADE_LEVEL,
+    ADD_LEVEL_ITEM,
     SELECTED_BID,
     ADD_BID,
     DELETE_BID,
+    DELETE_ITEM,
     TOGGLE_REVIEWED,
     LOAD_TRADE_DATA,
     SET_LOWEST_BIDS,
@@ -190,7 +192,7 @@ const BidTrackState = props => {
     }
 
     // Add item to bid
-    const addItem = async (iteminputs) => {
+    const addLevelItem = async (iteminputs) => {
 
         try {
             const res = await fetch(`${url}/user/additem`,
@@ -203,7 +205,8 @@ const BidTrackState = props => {
                     body: JSON.stringify(iteminputs)
                 })
             const data = await res.json()
-            console.log(data)
+            
+            dispatch({type: ADD_LEVEL_ITEM, payload: data})
 
         } catch (err) {
             console.error(err.message)
@@ -255,6 +258,17 @@ const BidTrackState = props => {
         })
         dispatch({type: DELETE_BID, payload: id})
 
+    }
+    
+    //Delete item
+    const deleteItem = async (itemid) => {
+        await fetch(`${url}/user/items/${itemid}`, {
+            method: 'DELETE',
+            headers: {
+                bidtrack_jwttoken: localStorage.bid_token
+            }
+        })
+        dispatch({type: DELETE_ITEM, payload: itemid})
     }
 
     // Toggle Reviewed when bid is double clicked
@@ -389,10 +403,11 @@ const BidTrackState = props => {
                 fetchBids,
                 fetchTrades,
                 fetchBidLevelItems,
-                addItem,
+                addLevelItem,
                 fetchBid, 
                 addBid, 
                 deleteBid, 
+                deleteItem,
                 toggleReviewed,
                 loadTrade,
                 addTrade,

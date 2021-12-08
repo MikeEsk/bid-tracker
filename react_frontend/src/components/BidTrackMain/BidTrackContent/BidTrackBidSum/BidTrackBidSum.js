@@ -12,6 +12,7 @@ function BidTrackBidSum() {
             await bidContext.fetchTrades()
             await bidContext.fetchBids()
             await bidContext.getLowestBids()
+            await bidContext.fetchBidLevelItems()
         }
         getAllBids()
 
@@ -43,7 +44,9 @@ function BidTrackBidSum() {
                     <tr>
                         <th>Trade</th>
                         <th>Company</th>
-                        <th>Price</th>
+                        <th>Base Price</th>
+                        <th>Added Items</th>
+                        <th>Adjusted Price</th>
                         <th>Reviewed</th>
                         <th>Lowest Bid</th>
                     </tr>
@@ -53,7 +56,9 @@ function BidTrackBidSum() {
                     {bidContext.trades.map((tradeName) => (
                         <React.Fragment key={tradeName.trade_id}>
                             <tr style={{borderBottom:'solid 1px'}}>
-                                <td>{tradeName.trade}</td>
+                                <td style={{paddingTop:'25px'}}>{tradeName.trade}</td>
+                                <td></td>
+                                <td></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -62,7 +67,7 @@ function BidTrackBidSum() {
 
                             {bidContext.allbids.map((bid) => (
                                 <React.Fragment key={bid.bid_id}>
-                                    {bid.trade===tradeName.trade && <BidSum bid={bid}/>}
+                                    {bid.trade===tradeName.trade && <BidSum bid={bid} items={bidContext.bidlevelitems}/>}
                                 </React.Fragment>
                             ))}
                         </React.Fragment>)    
@@ -71,6 +76,8 @@ function BidTrackBidSum() {
                 <tfoot>
                     <tr>
                         <td>Project Total</td>
+                        <td></td>
+                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
