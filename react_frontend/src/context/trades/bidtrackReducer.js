@@ -4,9 +4,12 @@ import {
     LOGOUT_USER,
     GET_BIDS,
     GET_TRADES,
+    TRADE_LEVEL,
+    ADD_LEVEL_ITEM,
     SELECTED_BID,
     ADD_BID,
     DELETE_BID,
+    DELETE_ITEM,
     TOGGLE_REVIEWED,
     LOAD_TRADE_DATA,
     SET_LOWEST_BIDS,
@@ -44,6 +47,7 @@ const bidtrackReducer = (state, action) => {
                 tradebids: [],
                 allbids: [],
                 lowestbids: {},
+                bidlevelitems: [],
                 selectedbid: '',
                 selectedtrade: 'default',
                 showAddTrade: false,
@@ -61,6 +65,18 @@ const bidtrackReducer = (state, action) => {
                 ...state,
                 trades: action.payload
             };
+
+        case TRADE_LEVEL:
+            return {
+                ...state,
+                bidlevelitems: action.payload
+            };
+
+        case ADD_LEVEL_ITEM:
+            return {
+                ...state,
+                bidlevelitems: [...state.bidlevelitems, action.payload]
+            }
 
         case SELECTED_BID:
             return {
@@ -82,6 +98,15 @@ const bidtrackReducer = (state, action) => {
                 ...state,
                 tradebids: new_bids
             };
+
+        case DELETE_ITEM:
+            const itemindex = state.bidlevelitems.findIndex(item => item.item === action.payload)
+            const new_items = [...state.bidlevelitems]
+            new_items.splice(itemindex, 1)
+            return {
+                ...state,
+                bidlevelitems: new_items
+            }
         
         case TOGGLE_REVIEWED:
             const bids_toggled = state.tradebids.map(bid => bid.bid_id === action.payload.id ? {...bid, reviewed: !bid.reviewed}: bid)

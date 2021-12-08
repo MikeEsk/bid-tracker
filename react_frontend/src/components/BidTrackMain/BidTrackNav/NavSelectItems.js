@@ -33,10 +33,14 @@ function NavSelectItems() {
             />
 
             <Route path='/bidleveling' exact render={() => (
-                    <div>
-                        Trades
-                    </div>
-                )}
+                <React.Fragment>
+                    {bidContext.trades.length === 0 && <span>No Trades</span>}
+                    <ul className='navselectitems'>
+                        {bidContext.trades.map(trade =>
+                            <li onClick={(e) => bidContext.loadTrade(e.target.textContent)} key={trade.trade_id} value={trade.trade} className='navselectitem'>{trade.trade}</li>
+                        )}
+                    </ul>
+                </React.Fragment>)}
             />
             
             <Route path='/about' exact render={() => (
